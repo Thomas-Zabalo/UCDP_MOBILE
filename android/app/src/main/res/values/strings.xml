@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">UCDP_Mobile</string>
+    <string name="title_activity_main">UCDP_Mobile</string>
+    <string name="package_name">com.uncoupdepouce.mobile</string>
+    <string name="custom_url_scheme">com.uncoupdepouce.mobile</string>
+</resources>
