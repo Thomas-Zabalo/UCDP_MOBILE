@@ -6,7 +6,7 @@ import Accueil from "./pages/Accueil.tsx";
 import Chat from "./pages/Chat.tsx";
 import Profile from "./pages/Profile.tsx";
 import Mission from "./pages/Mission.tsx";
-import {NavBar} from "./navigation/NavBar.tsx";
+import {NavBar} from "./components/navigation/NavBar.tsx";
 import Notification from "./pages/Notification.tsx";
 import {excludedRoutes} from "./data/excludedRoutes.ts";
 import {NavigationProvider} from "./context/NavigationContext.tsx";
