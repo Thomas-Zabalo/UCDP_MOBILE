@@ -33,17 +33,14 @@ export default function OnboardingSlider({ onComplete }: { onComplete: () => voi
         const touchEnd = e.changedTouches[0].clientX;
         const distance = touchStart - touchEnd;
 
-        // Si on slide vers la gauche (distance positive)
         if (distance > 50 && currentSlide < slides.length - 1) {
             setCurrentSlide(currentSlide + 1);
         }
-        // Si on slide vers la droite (distance négative)
         if (distance < -50 && currentSlide > 0) {
             setCurrentSlide(currentSlide - 1);
         }
         setTouchStart(null);
     };
-    // ------------------------
 
     const handleNext = () => {
         if (currentSlide < slides.length - 1) {
@@ -55,29 +52,30 @@ export default function OnboardingSlider({ onComplete }: { onComplete: () => voi
 
     return (
         <div
-            className="fixed inset-0 bg-white z-[100] flex flex-col select-none"
+            className="fixed inset-0 bg-white dark:bg-neutral-950 z-[100] flex flex-col select-none transition-colors duration-500"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
             {/* Header */}
             <div className="p-6 flex justify-end">
-                <button onClick={onComplete} className="text-gray-400 font-bold text-xs uppercase tracking-widest">
+                <button onClick={onComplete} className="text-gray-400 dark:text-neutral-600 font-bold text-xs uppercase tracking-widest active:opacity-50">
                     Passer
                 </button>
             </div>
 
-            {/* Corps (L'icône et le texte changent selon l'index) */}
-            <div className="flex-1 flex flex-col items-center justify-center px-8 text-center transition-all duration-500">
+            {/* Corps */}
+            <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
+                {/* Utilisation de key pour reset l'animation à chaque slide */}
                 <div key={currentSlide} className="animate-in fade-in slide-in-from-right-8 duration-500">
-                    <div className="mb-12 text-black flex justify-center">
+                    <div className="mb-12 text-black dark:text-white flex justify-center transition-colors">
                         <IonIcon name={slides[currentSlide].icon as any} style={{ fontSize: '100px' }} />
                     </div>
 
                     <div className="space-y-4 max-w-xs mx-auto">
-                        <h2 className="text-4xl font-black tracking-tighter uppercase">
+                        <h2 className="text-4xl font-black tracking-tighter uppercase text-black dark:text-white transition-colors">
                             {slides[currentSlide].title}
                         </h2>
-                        <p className="text-gray-500 text-lg">
+                        <p className="text-gray-500 dark:text-neutral-400 text-lg transition-colors">
                             {slides[currentSlide].description}
                         </p>
                     </div>
@@ -86,15 +84,24 @@ export default function OnboardingSlider({ onComplete }: { onComplete: () => voi
 
             {/* Footer */}
             <div className="p-8 space-y-8">
+                {/* Pagination Dots */}
                 <div className="flex justify-center gap-3">
                     {slides.map((_, index) => (
-                        <div key={index} className={`h-1.5 transition-all duration-300 rounded-full ${index === currentSlide ? 'w-10 bg-black' : 'w-2 bg-gray-200'}`} />
+                        <div
+                            key={index}
+                            className={`h-1.5 transition-all duration-300 rounded-full ${
+                                index === currentSlide
+                                    ? 'w-10 bg-neutral-950 dark:bg-white'
+                                    : 'w-2 bg-gray-200 dark:bg-neutral-800'
+                            }`}
+                        />
                     ))}
                 </div>
 
+                {/* Bouton Action : Inversion en Dark Mode */}
                 <button
                     onClick={handleNext}
-                    className="w-full bg-black text-white py-5 rounded-2xl font-black text-lg active:scale-95 transition-all uppercase"
+                    className="w-full bg-neutral-950 dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg active:scale-95 transition-all uppercase shadow-xl dark:shadow-white/5"
                 >
                     {currentSlide === slides.length - 1 ? 'Commencer' : 'Suivant'}
                 </button>
