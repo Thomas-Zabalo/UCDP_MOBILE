@@ -50,7 +50,7 @@ export default function Profile() {
                     <div className="relative">
                         <div className="size-28 rounded-[32px] overflow-hidden border border-gray-100 dark:border-neutral-800 p-1.5 bg-gray-50 dark:bg-neutral-900 shadow-sm">
                             <img
-                                src="https://i.pravatar.cc/150?u=myprofile"
+                                src="https://i.pravatar.cc/150?u=2"
                                 alt="Avatar"
                                 className="w-full h-full rounded-[24px] object-cover"
                             />
