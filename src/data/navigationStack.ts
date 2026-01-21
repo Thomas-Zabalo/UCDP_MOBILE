@@ -1,6 +1,6 @@
 // src/data/navigationStack.ts
 
-export const mainRoutes = ["/", "/mission", "/message", "/user"];
+export const mainRoutes = ["/", "/mission", "/message", "/user", "/new/mission"];
 
 export type NavStackItem = {
     path: string;
