@@ -1,5 +1,5 @@
 import {NavLink, useLocation} from "react-router";
-import {useNavigationStack} from "../../context/NavigationContext.tsx";
+import {useNavigationStack} from "../../provider/NavigationProvider.tsx";
 import IonIcon from "@reacticons/ionicons";
 import {useEffect, useState} from "react";
 import { mainRoutes } from "../../data/navigationStack.ts";
@@ -7,7 +7,7 @@ import { mainRoutes } from "../../data/navigationStack.ts";
 export function Header({title}: { title: string }) {
     const navStack = useNavigationStack();
     const location = useLocation();
-    const prevPath = navStack.getPreviousPath();
+    const prevPath : string = navStack.getPreviousPath();
 
     const [isSticky, setIsSticky] = useState(false);
 
@@ -20,8 +20,8 @@ export function Header({title}: { title: string }) {
     }, []);
 
     return (
-        <header className={`flex items-center gap-2 sticky top-0 z-40 bg-white my-4 px-6 transition-all ${
-            isSticky ? "py-4 shadow-md" : "py-2"
+        <header className={`flex items-center gap-2 sticky top-0 z-40 bg-white dark:bg-neutral-950 px-6 transition-all ${
+            isSticky ? "py-4 shadow-md" : "py-6"
         }`}>
             {showBackButton && (
                 <NavLink
@@ -31,7 +31,7 @@ export function Header({title}: { title: string }) {
                     <IonIcon name="arrow-back"/>
                 </NavLink>
             )}
-            <h1 className="text-xl font-bold">{title}</h1>
+            <h1 className="text-xl font-bold dark:text-white">{title}</h1>
         </header>
     );
 }
