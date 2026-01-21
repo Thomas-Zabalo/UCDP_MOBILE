@@ -1,11 +1,12 @@
-import {NavLink } from "react-router";
-import {menuItems} from "../data/menu.ts";
+import {NavLink} from "react-router";
+import {menuItems} from "../../data/menu.ts";
+import IonIcon from "@reacticons/ionicons";
 
 export function NavBar() {
 
     return (
-        <nav className="bg-black border-t border-gray-200 px-4 py-2 h-16 flex justify-around sticky bottom-0 z-40 shadow-lg">
-
+        <nav
+            className="fixed bottom-0 left-0 w-full bg-black border-t border-gray-200 px-4 py-2 h-16 flex justify-around z-40 shadow-lg">
             {menuItems.map((item) => (
                 <NavLink
                     key={item.to}
@@ -20,7 +21,11 @@ export function NavBar() {
                 >
                     {({isActive}) => (
                         <>
-                            <item.icon size={24}/>
+                            <IonIcon
+                                name={isActive ? item.icon : `${item.icon}-outline` as any}
+                                color={isActive ? "#ffffff" : "#9ca3af"}
+                                style={{fontSize: '24px'}}
+                            />
                             {isActive && (
                                 <span className="text-xs font-medium transition-all duration-300 ease-out">
                                      {item.name}
