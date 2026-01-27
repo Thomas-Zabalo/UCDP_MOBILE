@@ -17,6 +17,7 @@ import SplashScreen from "./pages/SplashScreen.tsx";
 import OnboardingSlider from "./pages/OnBoardingSlider.tsx";
 import Login from "./pages/connection/Login.tsx";
 import Register from "./pages/connection/Register.tsx";
+import Shop from "./pages/Shop.tsx";
 
 export default function AppRouter() {
     const location = useLocation();
@@ -81,6 +82,7 @@ export default function AppRouter() {
                 <Route path="mission/:id" element={<MissionDetail />} />
                 <Route path="new/mission" element={<AddMission/>}/>
                 <Route path="notification" element={<Notification/>}/>
+                <Route path="shop" element={<Shop/>}/>
             </Routes>
             {!isExcluded && <NavBar/>}
         </div>
