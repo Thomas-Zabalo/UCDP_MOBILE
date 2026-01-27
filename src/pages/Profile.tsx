@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Header } from "../components/navigation/Header.tsx";
 import IonIcon from "@reacticons/ionicons";
+import {useTheme} from "../context/ThemeProvider.tsx";
 
 export default function Profile() {
     const [isProMode, setIsProMode] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const {theme, setTheme} = useTheme();
 
-    // Synchronisation avec la classe 'dark' sur le document
-    useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [isDarkMode]);
+    const toggleTheme = useCallback(() => {
+        setTheme(theme === "dark" ? "light" : "dark");
+    }, [theme, setTheme]);
 
     return (
         <div className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
             <Header title="Mon Profil"/>
-
+            <div className="p-4">
+                <button onClick={toggleTheme}
+                        className="w-full flex items-center gap-x-3 p-2 rounded-md text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition">
+                    {theme === "dark" ? <><IonIcon name="sunny" style={{fontSize: '18px'}}/> Mode clair</> : <><IonIcon name="moon" style={{fontSize: '18px'}}/> Mode sombre</>}
+                </button>
+            </div>
             <main className="px-6 py-4 pb-32">
 
                 <div className="mb-10 bg-gray-50 dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-1.5 rounded-[24px] flex items-center relative h-14 transition-all">

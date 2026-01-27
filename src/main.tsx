@@ -9,7 +9,7 @@ import Mission from "./pages/mission/Mission.tsx";
 import {NavBar} from "./components/navigation/NavBar.tsx";
 import Notification from "./pages/Notification.tsx";
 import {excludedRoutes} from "./data/excludedRoutes.ts";
-import {NavigationProvider} from "./provider/NavigationProvider.tsx";
+import {NavigationProvider} from "./context/NavigationProvider.tsx";
 import ChatDetail from "./pages/chat/ChatDetail.tsx";
 import MissionDetail from "./pages/mission/MissionDetail.tsx";
 import {useEffect, useState} from "react";
@@ -18,6 +18,7 @@ import OnboardingSlider from "./pages/OnBoardingSlider.tsx";
 import Login from "./pages/connection/Login.tsx";
 import Register from "./pages/connection/Register.tsx";
 import Shop from "./pages/Shop.tsx";
+import {ThemeProvider} from "./context/ThemeProvider.tsx";
 
 export default function AppRouter() {
     const location = useLocation();
@@ -37,7 +38,7 @@ export default function AppRouter() {
         if (!hasSeenOnboarding && !isReady) {
             setShowOnboarding(true);
         } else if (!isReady) {
-                        setIsReady(true);
+            setIsReady(true);
             navigate('/');
         }
     }, [showSplash, isReady, navigate]);
@@ -62,11 +63,11 @@ export default function AppRouter() {
     });
 
     if (showSplash) {
-        return <SplashScreen onComplete={handleSplashComplete} />;
+        return <SplashScreen onComplete={handleSplashComplete}/>;
     }
 
     if (showOnboarding) {
-        return <OnboardingSlider onComplete={handleOnboardingComplete} />;
+        return <OnboardingSlider onComplete={handleOnboardingComplete}/>;
     }
 
     return (
@@ -79,7 +80,7 @@ export default function AppRouter() {
                 <Route path="login" element={<Login/>}/>
                 <Route path="register" element={<Register/>}/>
                 <Route path="mission" element={<Mission/>}/>
-                <Route path="mission/:id" element={<MissionDetail />} />
+                <Route path="mission/:id" element={<MissionDetail/>}/>
                 <Route path="new/mission" element={<AddMission/>}/>
                 <Route path="notification" element={<Notification/>}/>
                 <Route path="shop" element={<Shop/>}/>
@@ -91,10 +92,12 @@ export default function AppRouter() {
 
 
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <NavigationProvider>
-            <AppRouter/>
-        </NavigationProvider>
-    </BrowserRouter>
+    <ThemeProvider>
+        <BrowserRouter>
+            <NavigationProvider>
+                <AppRouter/>
+            </NavigationProvider>
+        </BrowserRouter>
+    </ThemeProvider>
 );
 
