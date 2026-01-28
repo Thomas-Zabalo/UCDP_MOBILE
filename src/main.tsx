@@ -5,13 +5,14 @@ import AddMission from "./pages/mission/AddMission.tsx";
 import Accueil from "./pages/Accueil.tsx";
 import Chat from "./pages/chat/Chat.tsx";
 import Profile from "./pages/Profile.tsx";
-import Mission from "./pages/mission/Mission.tsx";
+import MyMission from "./pages/mission/MyMission.tsx";
 import {NavBar} from "./components/navigation/NavBar.tsx";
 import Notification from "./pages/Notification.tsx";
 import {excludedRoutes} from "./data/excludedRoutes.ts";
 import {NavigationProvider} from "./context/NavigationProvider.tsx";
 import ChatDetail from "./pages/chat/ChatDetail.tsx";
 import MissionDetail from "./pages/mission/MissionDetail.tsx";
+import AllMission from "./pages/mission/AllMission.tsx";
 import {useEffect, useState} from "react";
 import SplashScreen from "./pages/SplashScreen.tsx";
 import OnboardingSlider from "./pages/OnBoardingSlider.tsx";
@@ -79,7 +80,8 @@ export default function AppRouter() {
                 <Route path="user" element={<Profile/>}/>
                 <Route path="login" element={<Login/>}/>
                 <Route path="register" element={<Register/>}/>
-                <Route path="mission" element={<Mission/>}/>
+                <Route path="mission" element={<MyMission/>}/>
+                <Route path="all" element={<AllMission/>}/>
                 <Route path="mission/:id" element={<MissionDetail/>}/>
                 <Route path="new/mission" element={<AddMission/>}/>
                 <Route path="notification" element={<Notification/>}/>

@@ -1,7 +1,7 @@
 import { HomeHeader } from "../components/navigation/HomeHeader.tsx";
-import SelectedCategory from "../components/SelectedCategory.tsx";
 import { useNavigate } from "react-router";
 import ProjectCard from "../components/cards/ProjectCard.tsx";
+import { NavLink } from "react-router";
 
 const MISSIONS = [
     {
@@ -41,15 +41,18 @@ export default function Accueil() {
         <main className="px-6 pb-28 min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
             <HomeHeader />
 
-            <div className="mb-10">
-                <SelectedCategory />
-            </div>
-
             <div className="flex flex-col gap-y-4">
                 {/* Changement : text-gray-400 -> dark:text-neutral-600 */}
-                <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-neutral-600 mb-1 ml-1">
-                    Missions à proximité
-                </h2>
+                <div className="flex justify-between">
+                    <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-neutral-600 mb-1 ml-1">
+                        Missions à proximité
+                    </h2>
+                    <NavLink to="/all"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-black transition duration-150 dark:text-neutral-600 mb-1 ml-1"
+                    >
+                        Voir tous
+                    </NavLink>
+                </div>
 
                 {MISSIONS.map((mission) => (
                     <ProjectCard
