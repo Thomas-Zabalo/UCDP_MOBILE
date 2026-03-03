@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Routes, useLocation, useNavigate} from 'react-rout
 import './index.css'
 import AddMission from "./pages/mission/AddMission.tsx";
 import Accueil from "./pages/Accueil.tsx";
-import Chat from "./pages/chat/Chat.tsx";
 import Profile from "./pages/Profile.tsx";
 import Mission from "./pages/mission/Mission.tsx";
 import {NavBar} from "./components/navigation/NavBar.tsx";
@@ -19,6 +18,8 @@ import Login from "./pages/connection/Login.tsx";
 import Register from "./pages/connection/Register.tsx";
 import Shop from "./pages/Shop.tsx";
 import {ThemeProvider} from "./context/ThemeProvider.tsx";
+import ChatIndex from "./pages/chat/ChatIndex.tsx";
+import Layout from "./pages/chat/Layout.tsx";
 
 export default function AppRouter() {
     const location = useLocation();
@@ -29,7 +30,7 @@ export default function AppRouter() {
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
-        localStorage.setItem('hasSeenOnboarding', 'false');
+        localStorage.setItem('hasSeenOnboarding', 'true');
         const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding') === 'true';
         if (showSplash) {
             return;
@@ -44,7 +45,9 @@ export default function AppRouter() {
     }, [showSplash, isReady, navigate]);
 
     const handleSplashComplete = () => {
-        setShowSplash(false);
+        setTimeout(() => {
+            setShowSplash(false);
+        }, 1000);
     };
 
     const handleOnboardingComplete = () => {
@@ -55,7 +58,7 @@ export default function AppRouter() {
     };
 
     const isExcluded = excludedRoutes.some(route => {
-        if (route.includes(':id')) {
+        if (window.innerWidth <= 768 && route.includes(':id')) {
             const baseRoute = route.replace('/:id', '');
             return location.pathname.startsWith(baseRoute) && location.pathname !== baseRoute;
         }
@@ -72,20 +75,24 @@ export default function AppRouter() {
 
     return (
         <div className="font-montserrat flex flex-col min-h-screen w-full bg-white">
-            <Routes>
-                <Route path="/" element={<Accueil/>}/>
-                <Route path="message" element={<Chat/>}/>
-                <Route path="message/:id" element={<ChatDetail/>}/>
-                <Route path="user" element={<Profile/>}/>
-                <Route path="login" element={<Login/>}/>
-                <Route path="register" element={<Register/>}/>
-                <Route path="mission" element={<Mission/>}/>
-                <Route path="mission/:id" element={<MissionDetail/>}/>
-                <Route path="new/mission" element={<AddMission/>}/>
-                <Route path="notification" element={<Notification/>}/>
-                <Route path="shop" element={<Shop/>}/>
-            </Routes>
             {!isExcluded && <NavBar/>}
+            <main className={`flex-1 flex flex-col ${!isExcluded ? 'md:pl-20' : ''} transition-all duration-300`}>
+                <Routes>
+                    <Route path="/" element={<Accueil/>}/>
+                    <Route path="/message" element={<Layout/>}>
+                        <Route index element={<ChatIndex/>}/>
+                        <Route path=":id" element={<ChatDetail/>}/>
+                    </Route>
+                    <Route path="user" element={<Profile/>}/>
+                    <Route path="login" element={<Login/>}/>
+                    <Route path="register" element={<Register/>}/>
+                    <Route path="mission" element={<Mission/>}/>
+                    <Route path="mission/:id" element={<MissionDetail/>}/>
+                    <Route path="new/mission" element={<AddMission/>}/>
+                    <Route path="notification" element={<Notification/>}/>
+                    <Route path="shop" element={<Shop/>}/>
+                </Routes>
+            </main>
         </div>
     );
 }

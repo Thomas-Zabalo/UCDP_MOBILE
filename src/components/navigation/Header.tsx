@@ -4,15 +4,14 @@ import IonIcon from "@reacticons/ionicons";
 import { useEffect, useState } from "react";
 import { mainRoutes } from "../../data/navigationStack.ts";
 
-export function Header({ title }: { title: string }) {
+export function Header({ title, showButton }: { title: string, showButton?: boolean }) {
     const navStack = useNavigationStack();
     const location = useLocation();
     const prevPath: string = navStack.getPreviousPath();
 
     const [isSticky, setIsSticky] = useState(false);
 
-    const showBackButton = !mainRoutes.includes(location.pathname);
-
+    const showBackButton = showButton && (!mainRoutes.includes(location.pathname));
     useEffect(() => {
         const handleScroll = () => setIsSticky(window.scrollY > 10);
         window.addEventListener("scroll", handleScroll);

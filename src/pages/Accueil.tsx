@@ -37,32 +37,48 @@ export default function Accueil() {
     const navigate = useNavigate();
 
     return (
-        // Changement : bg-white -> dark:bg-neutral-950
-        <main className="px-6 pb-28 min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
-            <HomeHeader />
+        <main className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
+            {/* Conteneur pour limiter la largeur sur Web et centrer le contenu */}
+            <div className="max-w-7xl mx-auto px-6 pb-28">
 
-            <div className="mb-10">
-                <SelectedCategory />
-            </div>
+                {/* Header adaptable : On peut imaginer qu'il prend plus de place sur desktop */}
+                <div className="py-4 md:py-8">
+                    <HomeHeader />
+                </div>
 
-            <div className="flex flex-col gap-y-4">
-                {/* Changement : text-gray-400 -> dark:text-neutral-600 */}
-                <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-neutral-600 mb-1 ml-1">
-                    Missions à proximité
-                </h2>
+                {/* Catégories : On peut les laisser en scroll horizontal (mobile) ou les étaler sur desktop */}
+                <div className="mb-10">
+                    <SelectedCategory />
+                </div>
 
-                {MISSIONS.map((mission) => (
-                    <ProjectCard
-                        key={mission.id}
-                        title={mission.title}
-                        category={mission.category}
-                        date={mission.date}
-                        image={mission.image}
-                        infoLeft={mission.location}
-                        infoRight={mission.author}
-                        onClick={() => navigate(`/mission/${mission.id}`)}
-                    />
-                ))}
+                <div className="flex flex-col gap-y-4">
+                    <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-neutral-600 mb-1 ml-1">
+                        Missions à proximité
+                    </h2>
+
+                    {/* LA GRILLE :
+                        - Default (mobile) : 1 colonne (flex-col via le parent ou grid-cols-1)
+                        - sm (tablette) : 2 colonnes
+                        - lg (desktop) : 3 colonnes
+                        - xl (grand écran) : 4 colonnes
+                    */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {MISSIONS.map((mission) => (
+                            <ProjectCard
+                                key={mission.id}
+                                title={mission.title}
+                                category={mission.category}
+                                date={mission.date}
+                                image={mission.image}
+                                infoLeft={mission.location}
+                                infoRight={mission.author}
+                                // On s'assure que la carte prend toute la largeur de sa cellule de grille
+                                className="w-full"
+                                onClick={() => navigate(`/mission/${mission.id}`)}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </main>
     );

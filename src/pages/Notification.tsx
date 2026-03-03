@@ -4,7 +4,7 @@ import NotificationCard from "../components/cards/NotificationCard.tsx";
 export default function Notification() {
     return (
         <div className="flex flex-col min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
-            <Header title={"Notifications"} />
+            <Header title={"Notifications"} showButton={true}/>
 
             <main className="flex-1 px-6 pt-2 pb-32">
                 <div className="flex flex-col gap-y-4">

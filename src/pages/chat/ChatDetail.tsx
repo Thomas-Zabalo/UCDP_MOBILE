@@ -1,10 +1,8 @@
 import { useParams, useNavigate } from "react-router";
 import { useEffect, useState, useRef } from "react";
 import IonIcon from "@reacticons/ionicons";
-import Loader from "../../components/Loader.tsx";
 
 export default function ChatDetail() {
-    const [loading, setLoading] = useState(true);
     const [inputText, setInputText] = useState("");
     const [messages, setMessages] = useState([
         { id: 1, text: "Bonjour ! Est-elle toujours disponible ?", sender: "other", time: "10:45" },
@@ -57,8 +55,8 @@ export default function ChatDetail() {
     };
 
     return (
-        <div className="min-h-screen bg-white dark:bg-[#0A0A0A] flex flex-col transition-colors duration-300">
-            {loading ? <Loader /> : (
+        <div className="h-full w-full bg-white dark:bg-[#0A0A0A] flex flex-col transition-colors duration-300">
+
                 <>
                     {/* Header avec flou adapté */}
                     <header className="fixed top-0 left-0 w-full bg-white/80 dark:bg-[#0A0A0A]/80 backdrop-blur-md z-50 px-6 pt-12 pb-4 border-b border-gray-100 dark:border-white/5 flex items-center gap-4">
@@ -68,7 +66,7 @@ export default function ChatDetail() {
                         <h1 className="text-sm font-black uppercase text-black dark:text-white">Utilisateur {id}</h1>
                     </header>
 
-                    <main className="flex-1 px-6 pt-32 pb-32 flex flex-col">
+                    <main className="flex-1 px-6 pt-32 pb-32 overflow-y-auto flex flex-col scroll-smooth">
                         {messages.map((msg, index) => {
                             const isMe = msg.sender === "me";
                             const prevMsg = messages[index - 1];
@@ -106,8 +104,7 @@ export default function ChatDetail() {
                         <div ref={messagesEndRef} />
                     </main>
 
-                    {/* Barre de saisie */}
-                    <div className="fixed bottom-0 left-0 w-full p-6 bg-white dark:bg-[#0A0A0A] border-t border-gray-100 dark:border-white/5">
+                    <div className="w-full p-6 bg-white dark:bg-[#0A0A0A] border-t border-gray-100 dark:border-white/5">
                         <div className="flex items-center gap-3 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-white/10 rounded-[24px] p-2 pl-4 focus-within:ring-2 focus-within:ring-black dark:focus-within:ring-white transition-all">
                             <input type="file" hidden ref={fileInputRef} accept="image/*" onChange={handleImageUpload} />
                             <button onClick={() => fileInputRef.current?.click()} className="size-10 text-gray-400 dark:text-neutral-500 hover:text-black dark:hover:text-white transition-colors">
@@ -130,7 +127,6 @@ export default function ChatDetail() {
                         </div>
                     </div>
                 </>
-            )}
         </div>
     );
 }

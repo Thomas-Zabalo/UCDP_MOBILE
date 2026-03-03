@@ -1,24 +1,59 @@
-import {useEffect} from "react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
-export default function SplashScreen({onComplete}: { onComplete: () => void }) {
+export default function SplashScreen({ onComplete }: { onComplete: () => void }) {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const circleRef = useRef<HTMLDivElement>(null);
+    const textRef = useRef<HTMLHeadingElement>(null);
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            onComplete();
-        }, 1500);
-        return () => clearTimeout(timer);
+        const maxDimension = Math.max(window.innerWidth, window.innerHeight);
+        const baseSize = 128;
+        const maxScale = (maxDimension / baseSize) * 1.5;
+
+        const tl = gsap.timeline({ onComplete });
+
+        tl.from(textRef.current, {
+            opacity: 0,
+            y: 40,
+            duration: 0.6,
+            ease: "power3.out"
+        })
+            .from(circleRef.current, {
+                scale: 0,
+                duration: 0.6,
+                ease: "back.out(1.6)"
+            })
+            .to(circleRef.current, {
+                scale: maxScale,
+                duration: 1,
+                ease: "power4.inOut"
+            })
+            .to(textRef.current, {
+                color: "#ffffff",
+                duration: 0.3
+            }, "-=0.6");
+
+        return () => tl.kill();
     }, [onComplete]);
 
     return (
         <div
-            className="fixed inset-0 bg-white dark:bg-neutral-950 flex items-center justify-center z-[100] transition-colors duration-500">
-            <div className="flex flex-col items-start">
-                <h1 className="text-black dark:text-white text-6xl font-black">
+            ref={containerRef}
+            className="px-4 fixed inset-0 bg-white flex items-center justify-center overflow-hidden"
+        >
+            <div className="relative flex items-center justify-center">
+                <div
+                    ref={circleRef}
+                    className="absolute w-32 h-32 bg-black rounded-full will-change-transform"
+                />
+
+                <h1
+                    ref={textRef}
+                    className="relative text-black text-5xl font-black will-change-transform"
+                >
                     UN COUP DE POUCE
                 </h1>
-
-                <div className="mt-8 w-12 h-[2px] bg-gray-100 dark:bg-neutral-800 overflow-hidden rounded-full">
-                    <div className="w-full h-full bg-black dark:bg-white origin-left animate-progress"/>
-                </div>
             </div>
         </div>
     );

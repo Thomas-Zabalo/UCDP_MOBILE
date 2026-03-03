@@ -1,27 +1,41 @@
 import { useState, useCallback } from "react";
 import { Header } from "../components/navigation/Header.tsx";
 import IonIcon from "@reacticons/ionicons";
-import {useTheme} from "../context/ThemeProvider.tsx";
+import { useTheme } from "../context/ThemeProvider.tsx";
 
 export default function Profile() {
     const [isProMode, setIsProMode] = useState(false);
-    const {theme, setTheme} = useTheme();
+    const { theme, setTheme } = useTheme();
 
     const toggleTheme = useCallback(() => {
         setTheme(theme === "dark" ? "light" : "dark");
     }, [theme, setTheme]);
 
+    const isDark = theme === "dark";
+
     return (
         <div className="min-h-screen bg-white dark:bg-neutral-950 transition-colors duration-300">
             <Header title="Mon Profil"/>
-            <div className="p-4">
-                <button onClick={toggleTheme}
-                        className="w-full flex items-center gap-x-3 p-2 rounded-md text-sm font-semibold text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition">
-                    {theme === "dark" ? <><IonIcon name="sunny" style={{fontSize: '18px'}}/> Mode clair</> : <><IonIcon name="moon" style={{fontSize: '18px'}}/> Mode sombre</>}
-                </button>
-            </div>
+
             <main className="px-6 py-4 pb-32">
 
+                {/* 1. Toggle Thème (Dark/Light) */}
+                <div className="mb-6 flex justify-end">
+                    <button
+                        onClick={toggleTheme}
+                        className="relative w-14 h-8 bg-gray-100 dark:bg-neutral-800 rounded-full p-1 transition-colors duration-300 border border-gray-200 dark:border-neutral-700"
+                    >
+                        <div className={`absolute top-1 left-1 size-6 rounded-full bg-white dark:bg-neutral-950 shadow-sm flex items-center justify-center transition-transform duration-300 ${isDark ? 'translate-x-6' : 'translate-x-0'}`}>
+                            <IonIcon
+                                name={isDark ? "moon" : "sunny"}
+                                className={isDark ? "text-indigo-400" : "text-amber-500"}
+                                style={{ fontSize: '14px' }}
+                            />
+                        </div>
+                    </button>
+                </div>
+
+                {/* 2. Switch Mode Client / Pro */}
                 <div className="mb-10 bg-gray-50 dark:bg-neutral-900 border border-gray-100 dark:border-neutral-800 p-1.5 rounded-[24px] flex items-center relative h-14 transition-all">
                     <div
                         className={`absolute h-[44px] w-[calc(50%-6px)] bg-black dark:bg-white rounded-[18px] transition-transform duration-300 ease-out ${
@@ -46,7 +60,7 @@ export default function Profile() {
                     </button>
                 </div>
 
-                {/* 2. Avatar & Identité */}
+                {/* 3. Avatar & Identité */}
                 <div className="flex flex-col items-center mb-10">
                     <div className="relative">
                         <div className="size-28 rounded-[32px] overflow-hidden border border-gray-100 dark:border-neutral-800 p-1.5 bg-gray-50 dark:bg-neutral-900 shadow-sm">
@@ -66,13 +80,13 @@ export default function Profile() {
                     </p>
                 </div>
 
-                {/* 3. Stats Cards Dynamiques */}
+                {/* 4. Stats Cards */}
                 <div className="grid grid-cols-2 gap-4 mb-10">
                     <StatCard value={isProMode ? "24" : "12"} label={isProMode ? "Réalisations" : "Demandes"} />
                     <StatCard value="4.9" label="Note" />
                 </div>
 
-                {/* 4. Menu Actions */}
+                {/* 5. Menu Actions */}
                 <div className="flex flex-col gap-y-3">
                     <h3 className="text-[10px] font-black text-gray-400 dark:text-neutral-600 uppercase tracking-[0.2em] ml-2 mb-2 transition-colors">Compte</h3>
 
