@@ -3,6 +3,36 @@ on:
   push:
     branches: [ main ]
 jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+
+        with:
+          node-version: 24
+
+      - name: Clean npm cache
+        run: npm cache clean --force
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npx eslint "src/**/*.{ts,tsx,js,jsx}"
+
+      - name: Prettier Check
+        run: npx prettier --check "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+      - name: TypeScript Check
+        run: npx tsc --noEmit
+
+      - name: Run Unit Tests
+        run: npm test -- --coverage
+ 
   build:
     runs-on: ubuntu-latest
     steps:
