@@ -1,31 +1,69 @@
-name: Build Android
+name: Workflow UCPD
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - '26000.*'
 jobs:
-  build:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v4
+
+     - name: Setup Node
+       uses: actions/setup-node@v4
+       with:
+         node-version: 24
+
+     - name: Clean npm cache
+       run: npm cache clean --force
+
+     - name: Install dependencies
+       run: npm install
+
+     - name: ESLint
+       run: npx eslint "src/**/*.{ts,tsx,js,jsx}"
+
+     - name: Prettier Check
+       run: npx prettier --check "src/**/*.{ts,tsx,js,jsx,json,css,md}"
+
+     - name: TypeScript Check
+       run: npx tsc --noEmit
+
+     - name: Run Unit Tests
+       run: npm test -- --coverage
+
+
+  build-android:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: 24
+
       - name: Install dependencies
         run: npm install
+
       - name: Build app
         run: npm run build
+
       - name: Sync to Capacitor
         run: npx cap sync android
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
          distribution: 'temurin'
          java-version: '21'
+
       - name: Make gradlew executable
         run: chmod +x android/gradlew
+
       - name: Build Android bundle
         run: cd android && ./gradlew assembleDebug
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
