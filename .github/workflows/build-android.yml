@@ -1,33 +1,80 @@
 name: Build Android
+
 on:
   push:
     branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24.x
+
       - name: Install dependencies
         run: npm install
+
       - name: Build app
         run: npm run build
+
       - name: Sync to Capacitor
         run: npx cap sync android
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
          distribution: 'temurin'
          java-version: '21'
+
       - name: Make gradlew executable
         run: chmod +x android/gradlew
+
       - name: Build Android bundle
         run: cd android && ./gradlew assembleDebug
+        
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: v1-release
-          path: android/app/build/outputs/apk/debug/app-debug.apk   
+          path: android/app/build/outputs/apk/debug/app-debug.apk  
+
+name: Build Electron Windows
+
+on:
+ push:
+   branches: [ main ]
+
+jobs:
+ build-windows:
+   runs-on: windows-latest
+
+   steps:
+     - uses: actions/checkout@v4
+
+     - name: Setup Node
+       uses: actions/setup-node@v4
+       with:
+         node-version: 20
+
+     - name: Install dependencies
+       run: npm install
+
+     - name: Build React
+       run: npm run build
+
+     - name: Sync Capacitor Electron
+       run: npx cap sync electron
+
+     - name: Build Windows .exe
+       run: npm run electron:build
+
+     - name: Upload .exe artifact
+       uses: actions/upload-artifact@v4
+       with:
+         name: app-windows
+         path: dist/*.exe

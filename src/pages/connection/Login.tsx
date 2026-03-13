@@ -35,7 +35,7 @@ export default function Login() {
             } else {
                 setMessage({status: 200, message: "Connexion réussie 🎉"});
                 localStorage.setItem("hasToken", data.token);
-                navigate("/"); // redirection
+                navigate("/");
             }
         } catch (error) {
             console.error(error);
