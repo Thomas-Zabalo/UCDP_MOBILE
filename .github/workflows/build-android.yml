@@ -42,32 +42,3 @@ jobs:
         with:
           name: v1-release
           path: android/app/build/outputs/apk/debug/app-debug.apk  
-
-  build-windows:
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build React
-        run: npm run build
-
-      - name: Sync Capacitor Electron
-        run: npx cap sync electron
-
-      - name: Build Windows .exe
-        run: npm run electron:build
-
-      - name: Upload .exe artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-windows
-          path: dist/*.exe
