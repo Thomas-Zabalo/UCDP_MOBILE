@@ -49,7 +49,7 @@ export default function Layout() {
                         <button
                             key={chat.id}
                             onClick={() => navigate(`/message/${chat.id}`)}
-                            className={`w-full p-4 rounded-[24px] flex items-center gap-4 transition-all ${parseInt(id) === chat.id ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-gray-50 dark:bg-neutral-900'}`}
+                            className={`w-full p-4 rounded-[24px] flex items-center gap-4 transition-all ${parseInt(id ?? "") === chat.id ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-gray-50 dark:bg-neutral-900'}`}
                         >
                             <img src={chat.img} className="size-10 rounded-xl object-cover" />
                             <span className="font-black uppercase text-[10px] truncate">{chat.name}</span>

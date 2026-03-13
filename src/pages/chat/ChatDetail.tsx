@@ -22,11 +22,6 @@ export default function ChatDetail() {
         scrollToBottom();
     }, [messages]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 500);
-        return () => clearTimeout(timer);
-    }, []);
-
     const handleSendMessage = () => {
         if (!inputText.trim()) return;
         const newMessage = {
@@ -90,7 +85,7 @@ export default function ChatDetail() {
                                                         isLastInGroup && !isFirstInGroup ? "rounded-[22px] rounded-tl-[4px]" : "rounded-[22px] rounded-bl-none"
                                             }`
                                     }`}>
-                                        {msg.image && <img src={msg.image} className="rounded-lg max-h-64 w-full object-cover mb-1 border dark:border-white/10" onLoad={scrollToBottom} />}
+                                        {/* {msg.image && <img src={msg.image} className="rounded-lg max-h-64 w-full object-cover mb-1 border dark:border-white/10" onLoad={scrollToBottom} />} */}
                                         {msg.text && <p>{msg.text}</p>}
                                     </div>
                                     {isLastInGroup && (

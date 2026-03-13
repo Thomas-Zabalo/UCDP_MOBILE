@@ -34,7 +34,9 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
                 duration: 0.3
             }, "-=0.6");
 
-        return () => tl.kill();
+        return () => {
+            tl.kill();
+        }
     }, [onComplete]);
 
     return (

@@ -1,16 +1,29 @@
 import IonIcon from "@reacticons/ionicons";
 
+type CardProps = {
+    title: string,
+    category: string,
+    date: string,
+    image: string,
+    infoLeft: string,
+    infoRight: string,
+    iconLeft?: string,
+    iconRight?: string,
+    onClick?: () => void
+}
+
+
 export default function ProjectCard({
-                                        title,
-                                        category,
-                                        date,
-                                        image,
-                                        infoLeft,
-                                        infoRight,
-                                        iconLeft = "location-outline",
-                                        iconRight = "person-outline",
-                                        onClick
-                                    }: CardProps) {
+    title,
+    category,
+    date,
+    image,
+    infoLeft,
+    infoRight,
+    iconLeft = "location-outline",
+    iconRight = "person-outline",
+    onClick
+}: CardProps) {
     return (
         <button
             onClick={onClick}
@@ -41,13 +54,13 @@ export default function ProjectCard({
 
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
-                        <IonIcon name={iconLeft as any} className="text-black dark:text-white text-xs transition-colors"/>
+                        <IonIcon name={iconLeft as any} className="text-black dark:text-white text-xs transition-colors" />
                         <span className="text-[10px] font-bold text-gray-500 dark:text-neutral-500 uppercase transition-colors">
                             {infoLeft}
                         </span>
                     </div>
                     <div className="flex items-center gap-1">
-                        <IonIcon name={iconRight as any} className="text-black dark:text-white text-xs transition-colors"/>
+                        <IonIcon name={iconRight as any} className="text-black dark:text-white text-xs transition-colors" />
                         <span className="text-[10px] font-bold text-gray-500 dark:text-neutral-500 uppercase transition-colors">
                             {infoRight}
                         </span>

@@ -1,9 +1,8 @@
-import { NavLink, useLocation } from "react-router";
+import { NavLink } from "react-router";
 import { menuItems } from "../../data/menu.ts";
 import IonIcon from "@reacticons/ionicons";
 
 export function NavBar() {
-    const location = useLocation();
 
     return (
         <div className="fixed bottom-6 md:bottom-0 left-0 w-full md:w-20 md:h-screen px-6 md:px-0 z-40 transition-all duration-300">

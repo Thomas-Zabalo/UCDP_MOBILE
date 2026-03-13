@@ -56,7 +56,7 @@ export default function Shop() {
                                 <div className="flex items-center gap-5 w-full">
                                     {/* Icon Box - Taille fixe */}
                                     <div className={`size-16 shrink-0 ${pack.color} rounded-[22px] flex items-center justify-center text-white shadow-lg`}>
-                                        <IonIcon name={pack.icon} className="text-3xl"/>
+                                        <IonIcon name={pack.icon as any} className="text-3xl"/>
                                     </div>
 
                                     {/* Infos (Prend l'espace restant) */}

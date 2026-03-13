@@ -56,12 +56,6 @@ export default function Accueil() {
                         Missions à proximité
                     </h2>
 
-                    {/* LA GRILLE :
-                        - Default (mobile) : 1 colonne (flex-col via le parent ou grid-cols-1)
-                        - sm (tablette) : 2 colonnes
-                        - lg (desktop) : 3 colonnes
-                        - xl (grand écran) : 4 colonnes
-                    */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {MISSIONS.map((mission) => (
                             <ProjectCard
@@ -72,8 +66,6 @@ export default function Accueil() {
                                 image={mission.image}
                                 infoLeft={mission.location}
                                 infoRight={mission.author}
-                                // On s'assure que la carte prend toute la largeur de sa cellule de grille
-                                className="w-full"
                                 onClick={() => navigate(`/mission/${mission.id}`)}
                             />
                         ))}
