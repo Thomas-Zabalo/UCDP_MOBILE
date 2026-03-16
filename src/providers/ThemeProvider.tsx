@@ -4,40 +4,42 @@ import * as React from "react";
 type Theme = "light" | "dark";
 
 const ThemeContext = createContext<{
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }>({
-    theme: "light",
-    setTheme: () => { },
+  theme: "light",
+  setTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<Theme>(() => {
-        const saved = localStorage.getItem("theme") as Theme | null;
-        return saved ?? "light";
-    });
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem("theme") as Theme | null;
+    return saved ?? "light";
+  });
 
-    useEffect(() => {
-        const root = document.documentElement;
-        if (theme === "dark") {
-            root.classList.add("dark");
-        } else {
-            root.classList.remove("dark");
-        }
-        localStorage.setItem("theme", theme);
-    }, [theme]);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
-    const value = useMemo(() => ({
-        theme, setTheme
-    }), [theme]);
+  const value = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme],
+  );
 
-    return (
-        <ThemeContext.Provider value={value}>
-            {children}
-        </ThemeContext.Provider>
-    );
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 }
 
 export function useTheme() {
-    return useContext(ThemeContext);
+  return useContext(ThemeContext);
 }
