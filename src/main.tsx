@@ -29,6 +29,7 @@ import ChatIndex from "./pages/chat/ChatIndex.tsx";
 import Layout from "./pages/chat/Layout.tsx";
 import AllMission from "./pages/mission/AllMission.tsx";
 import Error404 from "./pages/404/Error404.tsx";
+import Candidatures from "./pages/candidature/Candidature.tsx";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -99,6 +100,7 @@ export default function AppRouter() {
             <Route path="mission/:id" element={<MissionDetail />} />
             <Route path="new/mission" element={<AddMission />} />
             <Route path="notification" element={<Notification />} />
+            <Route path="candidatures" element={<Candidatures />} />
             <Route path="shop" element={<Shop />} />
           </Route>
 
