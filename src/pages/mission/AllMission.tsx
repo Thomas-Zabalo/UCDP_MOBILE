@@ -58,6 +58,7 @@ export default function AllMission() {
                                 image={null}
                                 infoLeft={m.localisation}
                                 infoRight={`${m.utilisateur.prenom} ${m.utilisateur.nom}`}
+                                isAccepted={m.is_accepted}
                                 onClick={() => navigate(`/mission/${m.id_offre}`)}
                             />
                         ))

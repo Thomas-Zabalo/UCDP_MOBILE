@@ -15,6 +15,7 @@ export interface Mission {
   prix: number;
   date_offre: string;
   statut: boolean;
+  is_accepted: boolean;
   utilisateur: User;
   metier: Metier;
 }

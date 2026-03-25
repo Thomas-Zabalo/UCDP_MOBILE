@@ -17,7 +17,6 @@ export interface User {
   code_postal: number;
   ville: string;
   role: Role;
-  credit: number;
 }
 
 export interface UserDTO {

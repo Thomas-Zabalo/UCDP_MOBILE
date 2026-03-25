@@ -10,7 +10,9 @@ const getAuthHeaders = () => {
 
 export const missionService = {
     getAll: async (): Promise<Mission[]> => {
-        const response = await fetch(`/local/api/offre`, {
+        const ville = localStorage.getItem("ville");
+        const params = ville ? `?ville=${encodeURIComponent(ville)}` : "";
+        const response = await fetch(`/local/api/offre${params}`, {
             headers: getAuthHeaders(),
         });
         if (!response.ok) throw new Error("Erreur lors de la récupération des missions");

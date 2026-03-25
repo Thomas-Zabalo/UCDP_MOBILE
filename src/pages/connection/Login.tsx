@@ -40,6 +40,7 @@ export default function Login() {
         localStorage.setItem("hasToken", data.token);
         localStorage.setItem("user_id", data.user.id_utilisateur);
         localStorage.setItem("status", data.user.role);
+        localStorage.setItem("ville", data.user.ville ?? "");
         navigate("/");
       }
     } catch (error) {
