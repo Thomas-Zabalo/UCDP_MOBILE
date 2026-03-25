@@ -3,6 +3,7 @@ import IonIcon from "@reacticons/ionicons";
 import { useFetch } from "../../hooks/useFetch.tsx";
 import { candidatureService } from "../../services/candidatureService.ts";
 import { useSocket } from "../../providers/socketProvider.tsx";
+import {Header} from "../../components/navigation/Header.tsx";
 
 export default function Candidatures() {
     const navigate = useNavigate();
@@ -29,21 +30,14 @@ export default function Candidatures() {
     };
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center dark:bg-zinc-950">
+        <div className="min-h-screen flex items-center justify-center dark:bg-neutral-950">
             <div className="size-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
         </div>
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 pb-24 transition-colors duration-300">
-            <header className="px-8 pt-12 pb-6 bg-white dark:bg-zinc-900 shadow-sm mb-6">
-                <h1 className="text-3xl font-black uppercase tracking-tighter dark:text-white">
-                    Mes Candidatures
-                </h1>
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">
-                    Suivi de vos postulations
-                </p>
-            </header>
+        <div className="min-h-screen bg-white dark:bg-neutral-950 pb-24 transition-colors duration-300">
+            <Header title="Mes candidatures" showButton={false} className="md:hidden" />
 
             <main className="px-6 space-y-4">
                 {candidatures?.length === 0 ? (

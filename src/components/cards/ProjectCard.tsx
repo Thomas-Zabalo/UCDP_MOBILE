@@ -29,10 +29,12 @@ export default function ProjectCard({
       className="w-full bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 p-4 rounded-[28px] flex items-center gap-4 active:scale-[0.97] transition-all text-left shadow-sm"
     >
       <div className="size-20 shrink-0 rounded-[20px] overflow-hidden bg-gray-200 dark:bg-neutral-800 border border-gray-100 dark:border-neutral-700">
-        {image ? (
-            <img src={image} alt={title} className="w-full h-full object-cover" />
-        ):(
-            <img src="https://www.shutterstock.com/search/default-image-icon" alt={title} className="w-full h-full object-cover" />
+        {image && (
+            <img
+                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800"
+                className="w-full h-full object-cover"
+                alt={mission.titre}
+            />
         )}
 
 
