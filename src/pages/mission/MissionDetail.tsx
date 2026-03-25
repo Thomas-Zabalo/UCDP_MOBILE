@@ -103,7 +103,7 @@ export default function MissionDetail() {
                 className="relative -mt-10 flex-grow bg-white dark:bg-zinc-900 rounded-t-[40px] px-8 pt-10 pb-10 shadow-2xl transition-colors duration-300 flex flex-col">
                 <div className="flex-grow">
                     <div className="flex justify-between items-start mb-2">
-                        <p className="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-[0.2em]">
+                        <p className="text-[10px] font-black text-black dark:text-white uppercase tracking-[0.2em]">
                             {mission.metier?.nom || "Général"} • {new Date(mission.date_offre).toLocaleDateString()}
                         </p>
                     </div>
@@ -116,14 +116,14 @@ export default function MissionDetail() {
                         <div
                             className="flex items-center gap-2 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700/50 px-4 py-2.5 rounded-2xl">
                             <IonIcon name="location" className="text-black dark:text-zinc-400 text-sm"/>
-                            <span className="text-[10px] font-black uppercase tracking-tight dark:text-zinc-200">
+                            <span className="text-[10px] font-black uppercase tracking-tight dark:text-zinc-600">
                   {mission.localisation || "France"}
                 </span>
                         </div>
                         <div
                             className="flex items-center gap-2 bg-gray-50 dark:bg-zinc-800 border border-gray-100 dark:border-zinc-700/50 px-4 py-2.5 rounded-2xl">
                             <IonIcon name="person" className="text-black dark:text-zinc-400 text-sm"/>
-                            <span className="text-[10px] font-black uppercase tracking-tight dark:text-zinc-200">
+                            <span className="text-[10px] font-black uppercase tracking-tight dark:text-zinc-600">
                   {`${mission.utilisateur?.prenom} ${mission.utilisateur?.nom}`}
                 </span>
                         </div>

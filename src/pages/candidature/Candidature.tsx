@@ -8,6 +8,7 @@ import {Header} from "../../components/navigation/Header.tsx";
 export default function Candidatures() {
     const navigate = useNavigate();
     const { socket } = useSocket();
+    const role = localStorage.getItem("status");
 
     const { data: candidatures, loading } = useFetch(
         () => candidatureService.getMine(),
@@ -35,15 +36,19 @@ export default function Candidatures() {
         </div>
     );
 
+    const isPrestataire = role === "PRESTATAIRE";
+    const title = isPrestataire ? "Mes candidatures" : "Mes demandes";
+    const emptyText = isPrestataire ? "Aucune candidature" : "Aucune demande";
+
     return (
         <div className="min-h-screen bg-white dark:bg-neutral-950 pb-24 transition-colors duration-300">
-            <Header title="Mes candidatures" showButton={false} className="md:hidden" />
+            <Header title={title} showButton={false} className="md:hidden" />
 
             <main className="px-6 space-y-4">
                 {candidatures?.length === 0 ? (
                     <div className="py-20 text-center opacity-50">
-                        <IonIcon name="document-text-outline" className="text-5xl mb-4 dark:text-white" />
-                        <p className="font-black uppercase text-[10px] tracking-widest dark:text-white">Aucune candidature</p>
+                        <IonIcon name="document-text-outline" className="text-5xl mb-4 text-black dark:text-white" />
+                        <p className="font-black uppercase text-[10px] tracking-widest text-black dark:text-white">{emptyText}</p>
                     </div>
                 ) : (
                     candidatures?.map((item: any) => (
@@ -57,11 +62,10 @@ export default function Candidatures() {
                                     <span className={`text-[9px] font-black px-2.5 py-1 rounded-lg border uppercase tracking-wider ${getStatusStyle(item.statut)}`}>
                                         {item.statut.replace('_', ' ')}
                                     </span>
-                                    <h2 className="text-lg font-black dark:text-white mt-3 leading-tight uppercase tracking-tight">
+                                    <h2 className="text-lg font-black text-black dark:text-white mt-3 leading-tight uppercase tracking-tight">
                                         {item.titre}
                                     </h2>
                                 </div>
-                                <p className="text-xl font-black italic dark:text-white ml-2">{item.prix}€</p>
                             </div>
 
                             {/* Section Client - Plus discrète mais complète */}

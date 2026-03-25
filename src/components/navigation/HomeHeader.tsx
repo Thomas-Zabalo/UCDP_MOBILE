@@ -1,9 +1,13 @@
 import {NavLink} from "react-router";
 import IonIcon from "@reacticons/ionicons";
+import {useFetch} from "../../hooks/useFetch.tsx";
+import {userService} from "../../services/userService.ts";
 
 export function HomeHeader() {
     const haveNotification = true;
     const userStatus = localStorage.getItem("status");
+    const id_user = localStorage.getItem("user_id");
+    const {data: user} = useFetch(() => userService.getById(id_user || ""), [id_user]);
 
     return (
         <header className="pt-6 mb-10">
@@ -13,7 +17,7 @@ export function HomeHeader() {
                         to="/shop"
                         className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-2xl text-[11px] font-black flex items-center gap-2 active:scale-95 transition-all shadow-lg shadow-black/10 dark:shadow-white/5 border border-transparent dark:border-white/10"
                     >
-                        <span>150</span>
+                        <span> {user?.credits} </span>
                         <IonIcon name="wallet-outline" className="text-sm opacity-60"/>
                     </NavLink>
                 )}
@@ -34,7 +38,7 @@ export function HomeHeader() {
 
             {/* Prénom en mode "Statement" */}
             <p className="text-black dark:text-white font-black text-5xl uppercase tracking-tighter leading-none transition-colors">
-                Prénom
+                {user?.nom} {user?.prenom}
             </p>
         </header>
     );
