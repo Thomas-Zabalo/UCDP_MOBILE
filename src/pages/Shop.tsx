@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router";
 import IonIcon from "@reacticons/ionicons";
+import {useFetch} from "../hooks/useFetch.tsx";
+import {userService} from "../services/userService.ts";
 
 const CREDIT_PACKS = [
   {
@@ -30,6 +32,9 @@ const CREDIT_PACKS = [
 
 export default function Shop() {
   const navigate = useNavigate();
+  const id_user = localStorage.getItem("user_id");
+  const {data: user} = useFetch(() => userService.getById(id_user || ""), [id_user]);
+
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0A0A] transition-colors duration-300 font-sans">
@@ -55,7 +60,7 @@ export default function Shop() {
               Ton Solde Actuel
             </p>
             <h2 className="text-5xl font-black text-white dark:text-black tracking-tighter italic">
-              10.00 €
+              {user?.credits} credits
             </h2>
           </div>
           <div className="absolute -right-10 -bottom-10 size-40 bg-white/10 dark:bg-black/5 rounded-full blur-3xl" />
