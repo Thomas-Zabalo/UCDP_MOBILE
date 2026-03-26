@@ -8,28 +8,25 @@ import {
   useNavigate,
 } from "react-router";
 import { useState } from "react";
-import { NavBar } from "./components/navigation/NavBar.tsx";
-import { excludedRoutes } from "./data/excludedRoutes.ts";
-import { NavigationProvider } from "./providers/NavigationProvider.tsx";
-import { ThemeProvider } from "./providers/ThemeProvider.tsx";
-import { UnreadMessagesProvider } from "./providers/UnreadMessagesProvider.tsx";
-import ProtectedRoute from "./routes/ProtectedRoutes.tsx";
-import AddMission from "./pages/mission/AddMission.tsx";
-import Accueil from "./pages/Accueil.tsx";
-import Profile from "./pages/Profile.tsx";
-import Notification from "./pages/Notification.tsx";
-import ChatDetail from "./pages/chat/ChatDetail.tsx";
-import MissionDetail from "./pages/mission/MissionDetail.tsx";
-import SplashScreen from "./pages/SplashScreen.tsx";
-import OnboardingSlider from "./pages/OnBoardingSlider.tsx";
-import Login from "./pages/connection/Login.tsx";
-import Register from "./pages/connection/Register.tsx";
-import Shop from "./pages/Shop.tsx";
-import ChatIndex from "./pages/chat/ChatIndex.tsx";
-import Layout from "./pages/chat/Layout.tsx";
-import AllMission from "./pages/mission/AllMission.tsx";
-import Error404 from "./pages/404/Error404.tsx";
-import Candidatures from "./pages/candidature/Candidature.tsx";
+import { excludedRoutes } from "./app/core/data/excludedRoutes.ts";
+import { NavigationProvider } from "./app/providers/NavigationProvider.tsx";
+import { ThemeProvider } from "./app/providers/ThemeProvider.tsx";
+import { UnreadMessagesProvider } from "./app/providers/UnreadMessagesProvider.tsx";
+import ProtectedRoute from "./app/routes/ProtectedRoutes.tsx";
+import Candidatures from "./app/features/candidatures/pages/Candidature.tsx";
+import AddMission from "./app/features/missions/pages/AddMission.tsx";
+import MissionDetail from "./app/features/missions/pages/MissionDetail.tsx";
+import AllMission from "./app/features/missions/pages/AllMission.tsx";
+import Profile from "./app/features/profil/pages/Profile.tsx";
+import ChatDetail from "./app/features/messagerie/pages/ChatDetail.tsx";
+import ChatIndex from "./app/features/messagerie/pages/ChatIndex.tsx";
+import Layout from "./app/features/messagerie/pages/Layout.tsx";
+import Register from "./app/features/auth/pages/Register.tsx";
+import Login from "./app/features/auth/pages/Login.tsx";
+import SplashScreen from "./app/features/start/pages/SplashScreen.tsx";
+import OnboardingSlider from "./app/features/start/pages/OnBoardingSlider.tsx";
+import {NavBar} from "./app/core/components/navigation/NavBar.tsx";
+import Accueil from "./app/features/start/pages/Accueil.tsx";
 
 export default function AppRouter() {
   const location = useLocation();
@@ -99,12 +96,9 @@ export default function AppRouter() {
             <Route path="missions" element={<AllMission />} />
             <Route path="mission/:id" element={<MissionDetail />} />
             <Route path="new/mission" element={<AddMission />} />
-            <Route path="notification" element={<Notification />} />
             <Route path="candidatures" element={<Candidatures />} />
-            <Route path="shop" element={<Shop />} />
           </Route>
 
-          <Route path="*" element={<Error404 />} />
         </Routes>
       </main>
     </div>
