@@ -24,6 +24,11 @@ export default function Login() {
         setMessage(null);
         try {
             const data = await authService.login(email, password);
+
+            localStorage.setItem("hasToken", data.token);
+            localStorage.setItem("user_id", data.user.id_utilisateur);
+            localStorage.setItem("status", data.user.role);
+
             dispatch(setCredentials({
                 token: data.token,
                 user: data.user

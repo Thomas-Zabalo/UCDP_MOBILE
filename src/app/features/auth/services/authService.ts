@@ -4,8 +4,8 @@ export const authService = {
     async login(email: string, password: string): Promise<AuthResponse> {
         const response = await fetch("/local/api/user/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({email, password}),
         });
 
         const data = await response.json();
@@ -17,21 +17,21 @@ export const authService = {
         return data;
     },
 
-        logout: () => {
+    logout: () => {
         localStorage.removeItem("hasToken");
         localStorage.removeItem("user_id");
         localStorage.removeItem("status");
         window.location.href = "/login";
     },
 
-        register: async (
+    register: async (
         formData: RegisterFormData,
         userType: string,
     ): Promise<AuthResponse> => {
         const response = await fetch("/local/api/user/register", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ formData, userType }),
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({formData, userType}),
         });
 
         if (!response.ok) {
