@@ -76,13 +76,13 @@ export default function MyMission() {
   const selectedGroup = missions.find((m) => m.id_offre === selectedMission);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0A0A0A] transition-colors duration-300">
+    <div className="min-h-screen bg-white  transition-colors duration-300">
       <main className="flex-1 overflow-y-auto px-6 pt-12 pb-32">
         <header className="mb-10">
-          <h1 className="text-4xl font-black uppercase tracking-tighter text-black dark:text-white leading-none">
+          <h1 className="text-4xl font-black uppercase tracking-tighter text-black  leading-none">
             Mes Missions
           </h1>
-          <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mt-3">
+          <p className="text-[10px] font-black text-gray-400  uppercase tracking-widest mt-3">
             Gérer vos demandes en cours
           </p>
         </header>
@@ -98,12 +98,12 @@ export default function MyMission() {
             {[1, 2].map((i) => (
               <div
                 key={i}
-                className="h-32 rounded-[32px] bg-gray-100 dark:bg-neutral-900 animate-pulse"
+                className="h-32 rounded-[32px] bg-gray-100  animate-pulse"
               />
             ))}
           </div>
         ) : missions.length === 0 ? (
-          <p className="text-center text-gray-400 dark:text-neutral-600 text-xs font-black uppercase tracking-widest mt-20">
+          <p className="text-center text-gray-400  text-xs font-black uppercase tracking-widest mt-20">
             Aucune mission publiée
           </p>
         ) : (
@@ -138,27 +138,27 @@ export default function MyMission() {
       {selectedGroup && (
         <div className="fixed inset-0 z-[100] flex items-end">
           <div
-            className="absolute inset-0 bg-black/40 dark:bg-black/70 backdrop-blur-sm animate-in fade-in duration-300"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
             onClick={() => setSelectedMission(null)}
           />
 
-          <div className="relative bg-white dark:bg-[#121212] w-full rounded-t-[40px] px-8 pt-4 pb-12 animate-in slide-in-from-bottom-full duration-500 shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.3)] border-t dark:border-white/5">
-            <div className="w-12 h-1.5 bg-gray-200 dark:bg-neutral-800 rounded-full mx-auto mb-8" />
+          <div className="relative bg-white  w-full rounded-t-[40px] px-8 pt-4 pb-12 animate-in slide-in-from-bottom-full duration-500 shadow-[0_-20px_50px_-12px_rgba(0,0,0,0.3)] border-t">
+            <div className="w-12 h-1.5 bg-gray-200  rounded-full mx-auto mb-8" />
 
             <div className="flex justify-between items-start mb-8">
               <div>
-                <h3 className="text-2xl font-black uppercase tracking-tighter text-black dark:text-white">
+                <h3 className="text-2xl font-black uppercase tracking-tighter text-black ">
                   Candidatures
                 </h3>
-                <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mt-1">
+                <p className="text-[10px] font-black text-gray-400  uppercase tracking-widest mt-1">
                   {selectedGroup.titre}
                 </p>
               </div>
               <button
                 onClick={() => setSelectedMission(null)}
-                className="size-10 bg-gray-50 dark:bg-neutral-900 rounded-full flex items-center justify-center active:scale-90 transition-all border border-gray-100 dark:border-white/5"
+                className="size-10 bg-gray-50  rounded-full flex items-center justify-center active:scale-90 transition-all border border-gray-100"
               >
-                <IonIcon name="close" className="text-xl dark:text-white" />
+                <IonIcon name="close" className="text-xl " />
               </button>
             </div>
 
@@ -192,8 +192,8 @@ function MissionItem({ title, status, isActive, onClick }: any) {
       className={`w-full p-6 rounded-[32px] border-2 text-left transition-all active:scale-[0.98]
         ${
           isActive
-            ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black shadow-2xl shadow-black/20"
-            : "border-gray-100 bg-gray-50 text-black dark:border-neutral-900 dark:bg-neutral-900/50 dark:text-white"
+            ? "border-black bg-black text-white    shadow-2xl shadow-black/20"
+            : "border-gray-100 bg-gray-50 text-black"
         }`}
     >
       <div className="flex justify-between items-start mb-4">
@@ -201,13 +201,13 @@ function MissionItem({ title, status, isActive, onClick }: any) {
           className={`size-12 rounded-2xl flex items-center justify-center
             ${
               isActive
-                ? "bg-white/10 dark:bg-black/10 border border-white/20 dark:border-black/10"
-                : "bg-white dark:bg-neutral-800 shadow-sm"
+                ? "bg-white/10 border border-white/20"
+                : "bg-white  shadow-sm"
             }`}
         >
           <IonIcon
             name="construct"
-            className={`text-xl ${isActive ? "text-white dark:text-black" : "text-black dark:text-white"}`}
+            className={`text-xl ${isActive ? "text-white " : "text-black "}`}
           />
         </div>
       </div>
@@ -216,10 +216,10 @@ function MissionItem({ title, status, isActive, onClick }: any) {
       </h2>
       <div className="flex items-center gap-2">
         <div
-          className={`size-1.5 rounded-full ${isActive ? "bg-green-400" : "bg-black dark:bg-white"} animate-pulse`}
+          className={`size-1.5 rounded-full ${isActive ? "bg-green-400" : "bg-black "} animate-pulse`}
         />
         <p
-          className={`text-[10px] font-black uppercase tracking-widest ${isActive ? "text-white/60 dark:text-black/60" : "text-gray-400 dark:text-neutral-500"}`}
+          className={`text-[10px] font-black uppercase tracking-widest ${isActive ? "text-white/60 /60" : "text-gray-400"}`}
         >
           {status}
         </p>
@@ -240,17 +240,17 @@ function ProCard({
   const isValide = candidature.statut === "VALIDE";
 
   return (
-    <div className="bg-white dark:bg-neutral-900 border border-gray-100 dark:border-white/5 p-4 rounded-[30px] shadow-sm flex flex-col gap-4">
+    <div className="bg-white  border border-gray-100 /5 p-4 rounded-[30px] shadow-sm flex flex-col gap-4">
       <div className="flex items-center gap-4">
-        <div className="size-16 shrink-0 rounded-[22px] bg-gray-100 dark:bg-neutral-800 flex items-center justify-center border border-gray-50 dark:border-neutral-700">
-          <IonIcon name="person" className="text-2xl text-gray-400 dark:text-neutral-500" />
+        <div className="size-16 shrink-0 rounded-[22px] bg-gray-100  flex items-center justify-center border border-gray-50">
+          <IonIcon name="person" className="text-2xl text-gray-400 " />
         </div>
 
         <div className="flex-1 min-w-0">
-          <h4 className="font-black text-sm uppercase tracking-tight text-black dark:text-white truncate">
+          <h4 className="font-black text-sm uppercase tracking-tight text-black  truncate">
             {candidature.presta_prenom} {candidature.presta_nom}
           </h4>
-          <p className="text-[9px] font-black text-gray-400 dark:text-neutral-500 uppercase tracking-widest mt-0.5">
+          <p className="text-[9px] font-black text-gray-400  uppercase tracking-widest mt-0.5">
             Postulé le{" "}
             {new Date(candidature.date_postulation).toLocaleDateString("fr-FR")}
           </p>
@@ -271,7 +271,7 @@ function ProCard({
           <button
             onClick={onValider}
             disabled={isValidating}
-            className="flex-1 h-12 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all shadow-lg disabled:opacity-50 disabled:scale-100"
+            className="flex-1 h-12 bg-black  text-white  rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all shadow-lg disabled:opacity-50 disabled:scale-100"
           >
             {isValidating ? "..." : "Accepter"}
           </button>

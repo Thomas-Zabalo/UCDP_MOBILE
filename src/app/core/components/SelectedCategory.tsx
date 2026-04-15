@@ -9,7 +9,7 @@ export default function SelectedCategory() {
       <select
         value={selectedId}
         onChange={(e) => setSelectedId(e.target.value)}
-        className="w-full bg-gray-100 dark:bg-neutral-900 border-none rounded-2xl py-5 pl-12 pr-10 text-black dark:text-white font-black uppercase text-xs tracking-widest appearance-none outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all duration-300"
+        className="w-full bg-gray-100  border-none rounded-2xl py-5 pl-12 pr-10 text-black  font-black uppercase text-xs tracking-widest appearance-none outline-none focus:ring-2 focus:ring-black  transition-all duration-300"
       >
         <option value="1">Toutes les catégories</option>
         <option value="2">Plomberie</option>
@@ -18,12 +18,12 @@ export default function SelectedCategory() {
       </select>
 
       {/* Icône de gauche (Optionnelle mais ajoute du style) */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-black dark:text-white transition-colors">
+      <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-black  transition-colors">
         <IonIcon name="grid-outline" />
       </div>
 
       {/* Chevron de droite */}
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 dark:text-neutral-600 transition-colors">
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400  transition-colors">
         <IonIcon name="chevron-down" />
       </div>
     </div>

@@ -6,7 +6,6 @@ import {useUnreadMessages} from "../../../../app/providers/UnreadMessagesProvide
 export function NavBar() {
     const {unreadCount} = useUnreadMessages();
     const userStatus = localStorage.getItem("status");
-    console.log("Rôle détecté :", userStatus);
 
     const filteredMenuItems = menuItems.filter((item) => {
         if (!item.roles) return true;
@@ -17,7 +16,7 @@ export function NavBar() {
         <div
             className="fixed bottom-6 md:bottom-0 left-0 w-full md:w-20 md:h-screen px-6 md:px-0 z-40 transition-all duration-300">
             <nav
-                className="relative flex md:flex-col items-center justify-around md:justify-start md:gap-8 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border border-gray-100 dark:border-neutral-800 h-20 md:h-full rounded-[32px] md:rounded-none shadow-lg p-1.5 md:py-10">
+                className="relative flex md:flex-col items-center justify-around md:justify-start md:gap-8 bg-white/90 backdrop-blur-xl border border-gray-100  h-20 md:h-full rounded-[32px] md:rounded-none shadow-lg p-1.5 md:py-10">
                 {filteredMenuItems.map((item) => (
                     <NavLink
                         key={item.to}
@@ -27,7 +26,7 @@ export function NavBar() {
                         {({isActive}) => (
                             <>
                                 <div
-                                    className={`hidden md:block absolute left-0 w-1 h-6 bg-black dark:bg-white rounded-r-full transition-all duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}
+                                    className={`hidden md:block absolute left-0 w-1 h-6 bg-black  rounded-r-full transition-all duration-300 ${isActive ? "opacity-100" : "opacity-0"}`}
                                 />
 
                                 <div className="h-7 flex items-center justify-center relative">
@@ -40,8 +39,8 @@ export function NavBar() {
                                         }
                                         className={`transition-all duration-300 ${
                                             isActive
-                                                ? "text-black dark:text-white scale-110"
-                                                : "text-gray-400 dark:text-neutral-600 group-hover:text-black dark:group-hover:text-white"
+                                                ? "text-black "
+                                                : "text-gray-400  group-hover:text-black "
                                         }`}
                                         style={{
                                             fontSize: item.name === "Créer" ? "28px" : "24px",
@@ -52,7 +51,7 @@ export function NavBar() {
                                 <span
                                     className={`text-[9px] font-black uppercase tracking-widest mt-1 transition-all duration-300 md:hidden ${
                                         isActive
-                                            ? "text-black dark:text-white opacity-100"
+                                            ? "text-black  opacity-100"
                                             : "opacity-0 h-0"
                                     }`}
                                 >

@@ -1,11 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import IonIcon from "@reacticons/ionicons";
 
-export default function OnboardingSlider({
-                                             onComplete,
-                                         }: {
-    onComplete: () => void;
-}) {
+export default function OnboardingSlider({onComplete}: { onComplete: () => void; }) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [touchStart, setTouchStart] = useState<number | null>(null);
 
@@ -13,24 +9,23 @@ export default function OnboardingSlider({
         {
             icon: "flash-outline",
             title: "UN COUP DE POUCE",
-            description:
-                "La plateforme qui connecte vos besoins en travaux avec les meilleurs prestataires locaux.",
+            description: "La plateforme qui connecte vos besoins en travaux avec les meilleurs prestataires locaux.",
+            accent: "#FF791D"
         },
         {
             icon: "chatbubbles-outline",
             title: "ÉCHANGEZ SIMPLEMENT",
-            description:
-                "Discutez de vos projets, envoyez vos photos et validez vos devis en temps réel.",
+            description: "Discutez de vos projets, envoyez vos photos et validez vos devis en temps réel.",
+            accent: "#FF791D"
         },
         {
             icon: "star-outline",
             title: "VOTRE SATISFACTION",
-            description:
-                "Des interventions de qualité notées par la communauté pour un travail en toute confiance.",
+            description: "Des interventions de qualité notées par la communauté pour un travail en toute confiance.",
+            accent: "#FF791D"
         },
     ];
 
-    // --- LOGIQUE DU SLIDE ---
     const handleTouchStart = (e: React.TouchEvent) => {
         setTouchStart(e.targetTouches[0].clientX);
     };
@@ -59,59 +54,70 @@ export default function OnboardingSlider({
 
     return (
         <div
-            className="fixed inset-0 bg-white dark:bg-neutral-950 z-[100] flex flex-col select-none transition-colors duration-500"
+            className="fixed inset-0 bg-white  z-[100] flex flex-col select-none transition-colors duration-500"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
         >
-            <div className="p-6 flex justify-end">
-                <button
-                    onClick={onComplete}
-                    className="text-gray-400 dark:text-neutral-600 font-bold text-xs uppercase tracking-widest active:opacity-50"
-                >
-                    Passer
-                </button>
-            </div>
+            {currentSlide === slides.length - 1 ?
+                (
+                    <></>
+                ) : (
+                    <div className="p-6 flex justify-end">
+                        <button
+                            onClick={onComplete}
+                            className="link tracking-widest active:opacity-50"
+                        >
+                            Passer
+                        </button>
+                    </div>
+                )}
 
-            <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
+            <div className="flex-1 flex flex-col items-center justify-center px-10 text-center">
                 <div
                     key={currentSlide}
-                    className="animate-in fade-in slide-in-from-right-8 duration-500"
+                    className="animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-500"
                 >
-                    <div className="mb-12 text-black dark:text-white flex justify-center transition-colors">
+                    <div
+                        className="mb-8 flex justify-center transition-colors duration-500"
+                        style={{color: slides[currentSlide].accent}}
+                    >
                         <IonIcon
-                            name={slides[currentSlide].icon as any}
-                            style={{ fontSize: "100px" }}
+                            name={slides[currentSlide].icon as never}
+                            style={{fontSize: "100px"}}
                         />
                     </div>
 
-                    <div className="space-y-4 max-w-xs mx-auto">
-                        <h2 className="text-4xl font-black tracking-tighter uppercase text-black dark:text-white transition-colors">
+                    <div className="space-y-4 max-w-sm mx-auto">
+                        <h2 className="text-3xl font-[1000] tracking-tighter uppercase leading-tight transition-colors duration-500"
+                            style={{color: slides[currentSlide].accent}}>
                             {slides[currentSlide].title}
                         </h2>
-                        <p className="text-gray-500 dark:text-neutral-400 text-lg transition-colors">
+                        <p className="text-gray-400 text-base leading-relaxed font-medium px-4">
                             {slides[currentSlide].description}
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div className="p-8 space-y-8">
-                <div className="flex justify-center gap-3">
+            {/* Footer compact */}
+            <div className="p-10 flex flex-col items-center space-y-8">
+                {/* Pagination */}
+                <div className="flex justify-center gap-2.5">
                     {slides.map((_, index) => (
                         <div
                             key={index}
-                            className={`h-1.5 transition-all duration-300 rounded-full ${
-                                index === currentSlide
-                                    ? "w-10 bg-neutral-950 dark:bg-white"
-                                    : "w-2 bg-gray-200 dark:bg-neutral-800"
-                            }`}
+                            className="h-1.5 rounded-full transition-all duration-500"
+                            style={{
+                                width: index === currentSlide ? "32px" : "6px",
+                                backgroundColor: index === currentSlide ? slides[currentSlide].accent : "#E5E7EB"
+                            }}
                         />
                     ))}
                 </div>
 
                 <button
                     onClick={handleNext}
-                    className="w-full bg-neutral-950 dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg active:scale-95 transition-all uppercase shadow-xl dark:shadow-white/5"
+                    className="action active:scale-95 transition-all shadow-xl"
                 >
                     {currentSlide === slides.length - 1 ? "Commencer" : "Suivant"}
                 </button>

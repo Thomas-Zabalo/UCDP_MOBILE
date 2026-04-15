@@ -1,27 +1,45 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
+
 @plugin "daisyui";
 
-@custom-variant dark (&:where(.dark, .dark *));
-@theme {
-  --color-scheme: light dark;
-  --font-montserrat: "Montserrat", sans-serif;
+
+html {
+    background-color: white;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    color-scheme: dark;
-  }
+button.action {
+    width: 100%;
+    background-color: #FF791D;
+    color: white;
+    padding-inline: 0.0125rem;
+    padding-block: 1.25rem;
+    border-radius: 1rem;
+    text-transform: uppercase;
+    font-weight: 800;
 }
 
-.dark {
-  color-scheme: dark;
+button.link {
+    color: #505DC1;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
 }
 
-.light {
-  color-scheme: light;
+.input-field {
+    width: 100%;
+    background-color: #f3f4f6 !important;
+    border: none;
+    outline: none;
+    height: 4rem;
+    padding-left: 3.5rem;
+    padding-right: 1.25rem;
+    border-radius: 1rem;
+    color: #000000 !important;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.dark,
-:root:has(.dark) {
+.input-field:focus {
+    box-shadow: 0 0 0 2px #000000;
 }

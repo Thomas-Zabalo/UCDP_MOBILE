@@ -41,9 +41,9 @@ const FILTERS: { label: string; value: Statut | "TOUTES" }[] = [
 ];
 
 const statusConfig: Record<Statut, { label: string; color: string; icon: string }> = {
-    EN_ATTENTE: { label: "En attente", color: "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400", icon: "time-outline" },
-    VALIDE:     { label: "Acceptée",   color: "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400", icon: "checkmark-circle-outline" },
-    REFUSE:     { label: "Refusée",    color: "bg-red-100 text-red-700 dark:bg-red-500/10 dark:text-red-400", icon: "close-circle-outline" },
+    EN_ATTENTE: { label: "En attente", color: "bg-amber-100 text-amber-700", icon: "time-outline" },
+    VALIDE:     { label: "Acceptée",   color: "bg-green-100 text-green-700", icon: "checkmark-circle-outline" },
+    REFUSE:     { label: "Refusée",    color: "bg-red-100 text-red-700", icon: "close-circle-outline" },
 };
 
 export default function Candidatures() {
@@ -71,7 +71,7 @@ function VuePrestataire({ navigate }: { navigate: ReturnType<typeof useNavigate>
         : candidatures.filter((c) => c.statut === filter);
 
     return (
-        <div className="min-h-screen bg-white dark:bg-neutral-950 pb-24 transition-colors duration-300">
+        <div className="min-h-screen bg-white pb-24 transition-colors duration-300">
             <Header title="Mes candidatures" showButton={false} className="md:hidden" />
 
             {/* Filtres */}
@@ -87,15 +87,15 @@ function VuePrestataire({ navigate }: { navigate: ReturnType<typeof useNavigate>
                                 onClick={() => setFilter(f.value)}
                                 className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95 ${
                                     filter === f.value
-                                        ? "bg-black dark:bg-white text-white dark:text-black shadow-lg"
-                                        : "bg-gray-100 dark:bg-neutral-900 text-gray-500 dark:text-neutral-400"
+                                        ? "bg-black  text-white  shadow-lg"
+                                        : "bg-gray-100  text-gray-500 "
                                 }`}
                             >
                                 {f.label}
                                 <span className={`text-[9px] px-1.5 py-0.5 rounded-lg font-black ${
                                     filter === f.value
-                                        ? "bg-white/20 dark:bg-black/20 text-white dark:text-black"
-                                        : "bg-black/10 dark:bg-white/10 text-black dark:text-white"
+                                        ? "bg-white/20  text-white "
+                                        : "bg-black/10 /10 text-black "
                                 }`}>{count}</span>
                             </button>
                         );
@@ -113,30 +113,30 @@ function VuePrestataire({ navigate }: { navigate: ReturnType<typeof useNavigate>
                         <div
                             key={item.id_candidature}
                             onClick={() => navigate(`/message/${item.client_id}`)}
-                            className="bg-white dark:bg-zinc-900 p-5 rounded-[28px] border border-gray-100 dark:border-zinc-800 shadow-xl shadow-black/5 active:scale-[0.97] transition-all cursor-pointer"
+                            className="bg-white p-5 rounded-[28px] border border-gray-100 shadow-xl shadow-black/5 active:scale-[0.97] transition-all cursor-pointer"
                         >
                             <div className="flex justify-between items-start mb-3">
                                 <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2.5 py-1 rounded-xl uppercase tracking-wider ${statusConfig[item.statut].color}`}>
                                     <IonIcon name={statusConfig[item.statut].icon as any} className="text-[11px]" />
                                     {statusConfig[item.statut].label}
                                 </span>
-                                <span className="text-[9px] font-black text-gray-400 dark:text-neutral-500 uppercase tracking-widest">
+                                <span className="text-[9px] font-black text-gray-400  uppercase tracking-widest">
                                     {new Date(item.date_postulation).toLocaleDateString("fr-FR")}
                                 </span>
                             </div>
 
-                            <h2 className="text-base font-black text-black dark:text-white uppercase tracking-tight leading-tight mb-3">
+                            <h2 className="text-base font-black text-black  uppercase tracking-tight leading-tight mb-3">
                                 {item.titre}
                             </h2>
 
-                            <div className="flex items-center justify-between pt-3 border-t border-gray-50 dark:border-zinc-800/50">
+                            <div className="flex items-center justify-between pt-3 border-t border-gray-50 ">
                                 <div className="flex items-center gap-2">
                                     <img
                                         src={`https://api.dicebear.com/8.x/initials/svg?seed=${item.client_prenom}`}
-                                        className="size-7 rounded-full bg-gray-100 dark:bg-zinc-800"
+                                        className="size-7 rounded-full bg-gray-100 "
                                         alt=""
                                     />
-                                    <p className="text-[10px] font-black dark:text-white uppercase">
+                                    <p className="text-[10px] font-black  uppercase">
                                         {item.client_prenom} {item.client_nom}
                                     </p>
                                 </div>
@@ -194,7 +194,7 @@ function VueClient({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
     const traitees = candidatures.filter((c) => c.statut !== "EN_ATTENTE");
 
     return (
-        <div className="min-h-screen bg-white dark:bg-neutral-950 pb-24 transition-colors duration-300">
+        <div className="min-h-screen bg-white  pb-24 transition-colors duration-300">
             <Header title="Candidatures reçues" showButton={false} className="md:hidden" />
 
             <main className="px-6 space-y-8">
@@ -235,20 +235,20 @@ function VueClient({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
                                     {traitees.map((item) => (
                                         <div
                                             key={item.id_candidature}
-                                            className="bg-gray-50 dark:bg-zinc-900/60 p-4 rounded-[24px] border border-gray-100 dark:border-zinc-800"
+                                            className="bg-gray-50  p-4 rounded-[24px] border border-gray-100 "
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center gap-3">
                                                     <img
                                                         src={`https://api.dicebear.com/8.x/initials/svg?seed=${item.presta_prenom}`}
-                                                        className="size-9 rounded-full bg-gray-200 dark:bg-zinc-700"
+                                                        className="size-9 rounded-full bg-gray-200 "
                                                         alt=""
                                                     />
                                                     <div>
-                                                        <p className="text-[11px] font-black dark:text-white uppercase tracking-tight">
+                                                        <p className="text-[11px] font-black  uppercase tracking-tight">
                                                             {item.presta_prenom} {item.presta_nom}
                                                         </p>
-                                                        <p className="text-[9px] text-gray-400 dark:text-neutral-500 font-bold uppercase tracking-widest mt-0.5 truncate max-w-[160px]">
+                                                        <p className="text-[9px] text-gray-400  font-bold uppercase tracking-widest mt-0.5 truncate max-w-[160px]">
                                                             {item.titre}
                                                         </p>
                                                     </div>
@@ -281,34 +281,34 @@ function ClientCard({ item, acting, onValider, onRefuser, onChat }: {
     const isActing = acting === item.id_candidature;
 
     return (
-        <div className="bg-white dark:bg-zinc-900 p-5 rounded-[28px] border border-gray-100 dark:border-zinc-800 shadow-xl shadow-black/5">
+        <div className="bg-white p-5 rounded-[28px] border border-gray-100  shadow-xl shadow-black/5">
             {/* Header */}
             <div className="flex items-center gap-3 mb-4">
                 <img
                     src={`https://api.dicebear.com/8.x/initials/svg?seed=${item.presta_prenom}`}
-                    className="size-12 rounded-[16px] bg-gray-100 dark:bg-zinc-800"
+                    className="size-12 rounded-[16px] bg-gray-100 "
                     alt=""
                 />
                 <div className="flex-1 min-w-0">
-                    <p className="text-sm font-black dark:text-white uppercase tracking-tight truncate">
+                    <p className="text-sm font-black  uppercase tracking-tight truncate">
                         {item.presta_prenom} {item.presta_nom}
                     </p>
-                    <p className="text-[9px] font-black text-gray-400 dark:text-neutral-500 uppercase tracking-widest mt-0.5">
+                    <p className="text-[9px] font-black text-gray-400  uppercase tracking-widest mt-0.5">
                         {new Date(item.date_postulation).toLocaleDateString("fr-FR")}
                     </p>
                 </div>
                 <button
                     onClick={onChat}
-                    className="size-10 bg-gray-100 dark:bg-neutral-800 rounded-2xl flex items-center justify-center active:scale-90 transition-all"
+                    className="size-10 bg-gray-100  rounded-2xl flex items-center justify-center active:scale-90 transition-all"
                 >
-                    <IonIcon name="chatbubble-ellipses" className="text-lg dark:text-white" />
+                    <IonIcon name="chatbubble-ellipses" className="text-lg " />
                 </button>
             </div>
 
             {/* Mission */}
-            <div className="bg-gray-50 dark:bg-zinc-800/50 rounded-2xl px-4 py-3 mb-4">
-                <p className="text-[9px] font-black text-gray-400 dark:text-neutral-500 uppercase tracking-widest mb-1">Mission</p>
-                <p className="text-sm font-black text-black dark:text-white uppercase tracking-tight leading-tight">{item.titre}</p>
+            <div className="bg-gray-50 rounded-2xl px-4 py-3 mb-4">
+                <p className="text-[9px] font-black text-gray-400  uppercase tracking-widest mb-1">Mission</p>
+                <p className="text-sm font-black text-black  uppercase tracking-tight leading-tight">{item.titre}</p>
                 <div className="flex items-center gap-1 mt-1 text-gray-400">
                     <IonIcon name="location" className="text-[10px]" />
                     <span className="text-[9px] font-bold uppercase tracking-tighter">{item.localisation}</span>
@@ -320,14 +320,14 @@ function ClientCard({ item, acting, onValider, onRefuser, onChat }: {
                 <button
                     onClick={() => onValider(item.id_candidature)}
                     disabled={isActing}
-                    className="flex-1 h-12 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all shadow-lg disabled:opacity-40"
+                    className="flex-1 h-12 bg-black  text-white  rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all shadow-lg disabled:opacity-40"
                 >
                     {isActing ? "..." : "Accepter"}
                 </button>
                 <button
                     onClick={() => onRefuser(item.id_candidature)}
                     disabled={isActing}
-                    className="flex-1 h-12 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-500/20 rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all disabled:opacity-40"
+                    className="flex-1 h-12 bg-red-50  text-red-600  border border-red-100  rounded-2xl font-black uppercase text-[10px] tracking-widest active:scale-95 transition-all disabled:opacity-40"
                 >
                     {isActing ? "..." : "Refuser"}
                 </button>
@@ -341,7 +341,7 @@ function SectionTitle({ label, count, color }: { label: string; count: number; c
     return (
         <div className="flex items-center gap-2 mb-4">
             <p className={`text-[10px] font-black uppercase tracking-widest ${color}`}>{label}</p>
-            <span className="text-[9px] font-black bg-gray-100 dark:bg-neutral-900 text-gray-500 dark:text-neutral-400 px-2 py-0.5 rounded-lg">{count}</span>
+            <span className="text-[9px] font-black bg-gray-100  text-gray-500  px-2 py-0.5 rounded-lg">{count}</span>
         </div>
     );
 }
@@ -349,8 +349,8 @@ function SectionTitle({ label, count, color }: { label: string; count: number; c
 function Empty({ text }: { text: string }) {
     return (
         <div className="py-20 text-center opacity-50">
-            <IonIcon name="document-text-outline" className="text-5xl mb-4 text-black dark:text-white" />
-            <p className="font-black uppercase text-[10px] tracking-widest text-black dark:text-white">{text}</p>
+            <IonIcon name="document-text-outline" className="text-5xl mb-4 text-black " />
+            <p className="font-black uppercase text-[10px] tracking-widest text-black ">{text}</p>
         </div>
     );
 }
@@ -359,7 +359,7 @@ function Skeleton() {
     return (
         <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-                <div key={i} className="h-40 rounded-[28px] bg-gray-100 dark:bg-neutral-900 animate-pulse" />
+                <div key={i} className="h-40 rounded-[28px] bg-gray-100  animate-pulse" />
             ))}
         </div>
     );

@@ -14,21 +14,19 @@ export default function AllMission() {
         []
     );
 
-    console.log(missions)
-
     return (
-        <div className="min-h-screen bg-neutral-50 dark:bg-black transition-colors duration-500">
-            <header className="fixed md:hidden top-0 left-0 w-full bg-white/80 dark:bg-[#0A0A0A]/80 backdrop-blur-md z-50 px-6 pt-12 pb-4 border-b border-gray-100 dark:border-white/5 flex items-center gap-4">
+        <div className="min-h-screen bg-neutral-50  transition-colors duration-500">
+            <header className="fixed md:hidden top-0 left-0 w-full bg-white/80 backdrop-blur-md z-50 px-6 pt-12 pb-4 border-b border-gray-100  flex items-center gap-4">
                 <button
                     onClick={() => navigate(-1)}
-                    className="size-10 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-white/5 rounded-xl flex items-center justify-center active:scale-90 transition-all"
+                    className="size-10 bg-gray-50  border border-gray-200  rounded-xl flex items-center justify-center active:scale-90 transition-all"
                 >
                     <IonIcon
                         name="chevron-back"
-                        className="text-xl text-black dark:text-white"
+                        className="text-xl text-black "
                     />
                 </button>
-                <h1 className="text-sm font-black uppercase text-black dark:text-white">
+                <h1 className="text-sm font-black uppercase text-black ">
                     Toutes les missions
                 </h1>
             </header>
@@ -41,7 +39,7 @@ export default function AllMission() {
                 <div className="flex flex-col gap-y-5">
                     {loading ? (
                         [1, 2, 3].map((n) => (
-                            <div key={n} className="w-full h-40 bg-white dark:bg-neutral-900 rounded-[32px] animate-pulse border border-neutral-100 dark:border-neutral-800" />
+                            <div key={n} className="w-full h-40 bg-white  rounded-[32px] animate-pulse border border-neutral-100" />
                         ))
                     ) : error ? (
                         <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -53,11 +51,11 @@ export default function AllMission() {
                             <ProjectCard
                                 key={m.id_offre}
                                 title={m.titre}
-                                category={m.metier.nom}
+                                category={m.metier?.nom || "Besoin général"}
                                 date={new Date(m.date_offre).toLocaleDateString()}
                                 image={null}
                                 infoLeft={m.localisation}
-                                infoRight={`${m.utilisateur.prenom} ${m.utilisateur.nom}`}
+                                infoRight={`${m.utilisateur?.prenom || ''} ${m.utilisateur?.nom || 'Client'}`}
                                 isAccepted={m.is_accepted}
                                 onClick={() => navigate(`/mission/${m.id_offre}`)}
                             />
@@ -72,7 +70,7 @@ export default function AllMission() {
 
                 {!loading && missions && missions.length > 5 && (
                     <div className="mt-10 flex justify-center">
-                        <button className="text-[10px] font-black uppercase tracking-widest px-8 py-4 bg-white dark:bg-neutral-900 rounded-full border border-neutral-200 dark:border-neutral-800 active:scale-95 transition-all">
+                        <button className="text-[10px] font-black uppercase tracking-widest px-8 py-4 bg-white  rounded-full border border-neutral-200 active:scale-95 transition-all">
                             Charger plus
                         </button>
                     </div>

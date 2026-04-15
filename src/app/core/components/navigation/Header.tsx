@@ -31,21 +31,21 @@ export function Header({
       className={`sticky top-0 z-[100] w-full px-6 transition-all duration-300 border-b
             ${
               isSticky
-                ? "bg-white/80 dark:bg-[#0A0A0A]/80 backdrop-blur-md border-gray-100 dark:border-white/5 pt-12 pb-4"
-                : "bg-white dark:bg-[#0A0A0A] border-transparent pt-12 pb-6"
+                ? "bg-white/80  backdrop-blur-md border-gray-100  pt-12 pb-4"
+                : "bg-white  border-transparent pt-12 pb-6"
             } ${className ?? ""}`}
     >
       <div className="flex items-center gap-4">
         {showBackButton && (
           <NavLink
             to={prevPath}
-            className="size-10 bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-white/5 rounded-xl flex items-center justify-center active:scale-90 transition-all text-black dark:text-white"
+            className="size-10 bg-gray-50  border border-gray-200  rounded-xl flex items-center justify-center active:scale-90 transition-all text-black"
           >
             <IonIcon name="chevron-back" className="text-xl" />
           </NavLink>
         )}
 
-        <h1 className="text-sm font-black uppercase tracking-widest text-black dark:text-white truncate">
+        <h1 className="text-sm font-black uppercase tracking-widest text-black  truncate">
           {title}
         </h1>
       </div>
