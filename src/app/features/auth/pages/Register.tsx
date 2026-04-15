@@ -4,7 +4,21 @@ import Message from "../../../core/components/Message.tsx";
 import IonIcon from "@reacticons/ionicons";
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../../store/authSlice';
+
+
 export default function Register() {
+    const getBaseUrl = () => {
+        // Si on est sur l'émulateur Android, on vise l'IP magique
+        // On peut détecter l'environnement mobile via l'URL (si ce n'est pas localhost)
+        if (typeof window !== "undefined" && window.location.hostname !== "localhost") {
+            return "http://10.0.2.2:3000/api";
+        }
+        // Sinon, on garde ton proxy Vite pour le développement sur navigateur PC
+        return "/local/api";
+    };
+
+    const API_URL = getBaseUrl();
+
     const dispatch = useDispatch();
     const [step, setStep] = useState(1);
     const [userType, setUserType] = useState<"particulier" | "professionnel">(
@@ -29,8 +43,8 @@ export default function Register() {
     const [formData, setFormData] = useState({
         nom: "",
         prenom: "",
-        mail: "",
-        mdp: "",
+        email: "",
+        password: "",
         confirmMdp: "",
         telephone: "",
         adresse: "",
@@ -51,19 +65,19 @@ export default function Register() {
         }));
     };
 
-    const allowedChars = /^[A-Za-z0-9!@#$%^&*()\-_]+$/;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()\-_]).{8,}$/;
+    const allowedChars = /^[A-Za-z0-9!@#$%^&*().\-_]+$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*().\-_]).{8,}$/;
     const nextStep = () => {
         if (
-            !formData.mail.trim() ||
-            !formData.mdp.trim() ||
+            !formData.email.trim() ||
+            !formData.password.trim() ||
             !formData.confirmMdp.trim()
         ) {
             setMessage({status: 400, message: "Tous les champs sont obligatoires"});
             return;
         }
 
-        if (!allowedChars.test(formData.mdp)) {
+        if (!allowedChars.test(formData.password)) {
             setMessage({
                 status: 400,
                 message: "Le mot de passe contient des caractères non autorisés",
@@ -71,7 +85,7 @@ export default function Register() {
             return;
         }
 
-        if (!passwordRegex.test(formData.mdp)) {
+        if (!passwordRegex.test(formData.password)) {
             setMessage({
                 status: 400,
                 message:
@@ -80,7 +94,7 @@ export default function Register() {
             return;
         }
 
-        if (formData.mdp !== formData.confirmMdp) {
+        if (formData.password !== formData.confirmMdp) {
             setMessage({
                 status: 400,
                 message: "Les mots de passe ne correspondent pas",
@@ -95,33 +109,47 @@ export default function Register() {
     const prevStep = () => setStep(1);
 
     const handleSubmit = async (e: React.FormEvent) => {
-        const roleBDD = userType === "professionnel" ? "PRESTATAIRE" : "CLIENT";
 
-        const dataToSend = {
-            ...formData,
-            role: roleBDD
+        const bodyToPost = {
+            nom: formData.nom,
+            prenom: formData.prenom,
+            email: formData.email,
+            password: formData.password,
+            telephone: formData.telephone,
+            adresse: formData.adresse,
+            code_postal: formData.code_postal,
+            ville: formData.ville,
+            raison_sociale: formData.raison_sociale || null,
+            role: userType === "professionnel" ? "PRESTATAIRE" : "CLIENT"
         };
 
         e.preventDefault();
         try {
-            const response = await fetch("/local/api/user/register", {
+            const response = await fetch(`${API_URL}/user/register`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({dataToSend, userType}),
+                body: JSON.stringify(bodyToPost),
             });
             const data = await response.json();
             if (!response.ok) {
+                const errorMessage = data.errors?.[0]?.message || data.message || "Erreur lors de l'inscription";
                 setMessage({
                     status: response.status,
-                    message: data.errors[0].message || "Erreur lors de l'inscription",
+                    message: errorMessage,
                 });
                 return;
             }
             setMessage({status: 200, message: data.message});
+
             dispatch(setCredentials({
                 token: data.token,
                 user: data.user
             }));
+
+            localStorage.setItem("hasToken", data.token);
+            localStorage.setItem("user_id", data.user.id_utilisateur);
+            localStorage.setItem("status", data.user.role);
+
             navigate("/");
         } catch (error) {
             console.error(error);
@@ -180,8 +208,8 @@ export default function Register() {
                                     type="email"
                                     placeholder="Adresse email"
                                     className="input-field"
-                                    value={formData.mail}
-                                    onChange={(e) => setFormData({...formData, mail: e.target.value})}
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                                     required
                                 />
                             </div>
@@ -193,8 +221,8 @@ export default function Register() {
                                 <input
                                     className="input-field"
                                     type={showPassword ? "text" : "password"}
-                                    value={formData.mdp}
-                                    onChange={(e) => setFormData({...formData, mdp: e.target.value})}
+                                    value={formData.password}
+                                    onChange={(e) => setFormData({...formData, password: e.target.value})}
                                     placeholder="Mot de passe"
                                     required
                                 />

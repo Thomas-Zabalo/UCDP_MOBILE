@@ -1,5 +1,16 @@
 import type {Mission} from "../types/mission.ts";
 
+const getBaseUrl = () => {
+    // Si on est sur l'émulateur Android, on vise l'IP magique
+    // On peut détecter l'environnement mobile via l'URL (si ce n'est pas localhost)
+    if (typeof window !== "undefined" && window.location.hostname !== "localhost") {
+        return "http://10.0.2.2:3000/api";
+    }
+    // Sinon, on garde ton proxy Vite pour le développement sur navigateur PC
+    return "/local/api";
+};
+
+const API_URL = getBaseUrl();
 const getAuthHeaders = () => {
     const token = localStorage.getItem("hasToken");
     return {
@@ -12,7 +23,7 @@ export const missionService = {
     getAll: async (): Promise<Mission[]> => {
         const ville = localStorage.getItem("ville");
         const params = ville ? `?ville=${encodeURIComponent(ville)}` : "";
-        const response = await fetch(`/local/api/offre${params}`, {
+        const response = await fetch(`${API_URL}/offre${params}`, {
             headers: getAuthHeaders(),
         });
         if (!response.ok) throw new Error("Erreur lors de la récupération des missions");
@@ -21,7 +32,7 @@ export const missionService = {
 
 
     getById: async (id: string): Promise<Mission> => {
-        const response = await fetch(`/local/api/offre/${id}`, {
+        const response = await fetch(`${API_URL}/offre/${id}`, {
             headers: getAuthHeaders(),
         });
         if (!response.ok) throw new Error("Mission introuvable");
@@ -30,7 +41,7 @@ export const missionService = {
 
 
     create: async (data: Partial<Mission>): Promise<Mission> => {
-        const response = await fetch(`/local/api/offre/`, {
+        const response = await fetch(`${API_URL}/offre/`, {
             method: "POST",
             headers: getAuthHeaders(),
             body: JSON.stringify(data),

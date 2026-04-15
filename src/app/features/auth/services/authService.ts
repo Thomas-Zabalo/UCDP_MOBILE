@@ -1,8 +1,20 @@
 import type {AuthResponse, RegisterFormData} from "../types/auth.ts";
 
+const getBaseUrl = () => {
+    // Si on est sur l'émulateur Android, on vise l'IP magique
+    // On peut détecter l'environnement mobile via l'URL (si ce n'est pas localhost)
+    if (typeof window !== "undefined" && window.location.hostname !== "localhost") {
+        return "http://10.0.2.2:3000/api";
+    }
+    // Sinon, on garde ton proxy Vite pour le développement sur navigateur PC
+    return "/local/api";
+};
+
+const API_URL = getBaseUrl();
+
 export const authService = {
     async login(email: string, password: string): Promise<AuthResponse> {
-        const response = await fetch("/local/api/user/login", {
+        const response = await fetch(`${API_URL}/user/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({email, password}),
