@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "26000.*"
+      - "*"
 jobs:
   push-to-org:
     runs-on: ubuntu-latest
