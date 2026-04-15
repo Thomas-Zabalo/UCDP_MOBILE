@@ -7,6 +7,10 @@ import {useNavigate} from "react-router";
 
 type Step = 1 | 2 | 3;
 
+interface Profession{
+    id_metier: number | string;
+    nom: string;
+}
 export default function AddMission() {
     const navigate = useNavigate();
     const [step, setStep] = useState<Step>(1);
@@ -44,7 +48,7 @@ export default function AddMission() {
     const prevStep = () => setStep((s) => (s - 1) as Step);
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
     ) => {
         const {name, value} = e.target;
         setFormData((prev) => ({...prev, [name]: value}));
@@ -77,7 +81,7 @@ export default function AddMission() {
             const missionToSave = {
                 titre: formData.title,
                 description: formData.description,
-                id_metier: formData.profession || null, // Car peut être null si "Je décris simplement"
+                id_metier: formData.profession || undefined,
                 localisation: formData.location,
                 date_offre: new Date().toISOString(),
                 statut: false,
@@ -174,7 +178,7 @@ export default function AddMission() {
                                             <option value="" className="text-gray-400 bg-white ">
                                                 Sélectionnez un métier
                                             </option>
-                                            {professions?.map((p: any) => (
+                                            {professions?.map((p: Profession) => (
                                                 <option
                                                     key={p.id_metier}
                                                     value={p.id_metier}

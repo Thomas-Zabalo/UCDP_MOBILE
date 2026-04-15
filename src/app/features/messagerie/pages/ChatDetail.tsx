@@ -53,7 +53,7 @@ export default function ChatDetail() {
       socket.off("new_message");
       socket.off("messages_read");
     };
-  }, [contactId]);
+  }, [contactId, myId]);
 
   const { data: user } = useFetch(
     () => userService.getById(contactId || ""),

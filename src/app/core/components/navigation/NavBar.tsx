@@ -9,7 +9,8 @@ export function NavBar() {
 
     const filteredMenuItems = menuItems.filter((item) => {
         if (!item.roles) return true;
-        return item.roles.includes(userStatus as any);
+        if (!userStatus) return false;
+        return (item.roles as readonly string[]).includes(userStatus);
     });
 
     return (
@@ -34,9 +35,7 @@ export function NavBar() {
                                         <span className="absolute -top-0.5 -right-0.5 size-2 bg-red-500 rounded-full"/>
                                     )}
                                     <IonIcon
-                                        name={
-                                            isActive ? item.icon : (`${item.icon}-outline` as any)
-                                        }
+                                        name={(isActive ? item.icon : `${item.icon}-outline`) as never}
                                         className={`transition-all duration-300 ${
                                             isActive
                                                 ? "text-black "

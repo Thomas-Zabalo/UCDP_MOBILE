@@ -2,9 +2,10 @@ import {useState} from "react";
 import {Link, useNavigate} from "react-router";
 import Message from "../../../core/components/Message.tsx";
 import IonIcon from "@reacticons/ionicons";
-import {authService} from "../services/authService.ts";
-
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../../store/authSlice';
 export default function Register() {
+    const dispatch = useDispatch();
     const [step, setStep] = useState(1);
     const [userType, setUserType] = useState<"particulier" | "professionnel">(
         "particulier",
@@ -117,9 +118,10 @@ export default function Register() {
                 return;
             }
             setMessage({status: 200, message: data.message});
-            localStorage.setItem("hasToken", data.token);
-            localStorage.setItem("user_id", data.user.id_utilisateur);
-            localStorage.setItem("status", data.user.role);
+            dispatch(setCredentials({
+                token: data.token,
+                user: data.user
+            }));
             navigate("/");
         } catch (error) {
             console.error(error);

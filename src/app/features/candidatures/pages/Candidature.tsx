@@ -117,7 +117,7 @@ function VuePrestataire({ navigate }: { navigate: ReturnType<typeof useNavigate>
                         >
                             <div className="flex justify-between items-start mb-3">
                                 <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2.5 py-1 rounded-xl uppercase tracking-wider ${statusConfig[item.statut].color}`}>
-                                    <IonIcon name={statusConfig[item.statut].icon as any} className="text-[11px]" />
+                                    <IonIcon name={statusConfig[item.statut].icon as never} className="text-[11px]" />
                                     {statusConfig[item.statut].label}
                                 </span>
                                 <span className="text-[9px] font-black text-gray-400  uppercase tracking-widest">
@@ -245,7 +245,7 @@ function VueClient({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
                                                         alt=""
                                                     />
                                                     <div>
-                                                        <p className="text-[11px] font-black  uppercase tracking-tight">
+                                                        <p className="text-[11px] font-black  uppercase tracking-tight text-black">
                                                             {item.presta_prenom} {item.presta_nom}
                                                         </p>
                                                         <p className="text-[9px] text-gray-400  font-bold uppercase tracking-widest mt-0.5 truncate max-w-[160px]">
@@ -254,7 +254,7 @@ function VueClient({ navigate }: { navigate: ReturnType<typeof useNavigate> }) {
                                                     </div>
                                                 </div>
                                                 <span className={`inline-flex items-center gap-1 text-[9px] font-black px-2.5 py-1 rounded-xl uppercase tracking-wider ${statusConfig[item.statut].color}`}>
-                                                    <IonIcon name={statusConfig[item.statut].icon as any} className="text-[11px]" />
+                                                    <IonIcon name={statusConfig[item.statut].icon as never} className="text-[11px]" />
                                                     {statusConfig[item.statut].label}
                                                 </span>
                                             </div>

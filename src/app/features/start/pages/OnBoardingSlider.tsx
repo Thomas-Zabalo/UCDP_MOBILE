@@ -10,19 +10,19 @@ export default function OnboardingSlider({onComplete}: { onComplete: () => void;
             icon: "flash-outline",
             title: "UN COUP DE POUCE",
             description: "La plateforme qui connecte vos besoins en travaux avec les meilleurs prestataires locaux.",
-            accent: "#FF791D"
+            accent: "#000000"
         },
         {
             icon: "chatbubbles-outline",
             title: "ÉCHANGEZ SIMPLEMENT",
             description: "Discutez de vos projets, envoyez vos photos et validez vos devis en temps réel.",
-            accent: "#FF791D"
+            accent: "#000000"
         },
         {
             icon: "star-outline",
             title: "VOTRE SATISFACTION",
             description: "Des interventions de qualité notées par la communauté pour un travail en toute confiance.",
-            accent: "#FF791D"
+            accent: "#000000"
         },
     ];
 
@@ -99,9 +99,7 @@ export default function OnboardingSlider({onComplete}: { onComplete: () => void;
                 </div>
             </div>
 
-            {/* Footer compact */}
             <div className="p-10 flex flex-col items-center space-y-8">
-                {/* Pagination */}
                 <div className="flex justify-center gap-2.5">
                     {slides.map((_, index) => (
                         <div

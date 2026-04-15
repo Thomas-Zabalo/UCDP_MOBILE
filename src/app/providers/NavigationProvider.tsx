@@ -1,27 +1,26 @@
-import { createContext, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useLocation } from "react-router";
-import { NavigationStack, navStack } from "../core/data/navigationStack.ts";
+import { navStack } from "../core/data/navigationStack.ts";
+import { NavigationContext } from "./NavigationContext";
 
-const NavigationContext = createContext<NavigationStack>(navStack);
-
-export function NavigationProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function NavigationProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   useEffect(() => {
     navStack.push(location.pathname);
-  }, [location]);
+  }, [location.pathname]);
 
   return (
-    <NavigationContext.Provider value={navStack}>
-      {children}
-    </NavigationContext.Provider>
+      <NavigationContext.Provider value={navStack}>
+        {children}
+      </NavigationContext.Provider>
   );
 }
 
 export function useNavigationStack() {
-  return useContext(NavigationContext);
+  const context = useContext(NavigationContext);
+  if (!context) {
+    throw new Error("useNavigationStack must be used within a NavigationProvider");
+  }
+  return context;
 }

@@ -7,7 +7,6 @@ import {useFetch} from "../../../core/hooks/useFetch.tsx";
 export default function MissionDetail() {
     const navigate = useNavigate();
     const {id} = useParams<{ id: string }>();
-    const [isFavorite, setIsFavorite] = useState(false);
     const [isApplying, setIsApplying] = useState(false);
 
     const userStatus = localStorage.getItem("status");
@@ -75,16 +74,6 @@ export default function MissionDetail() {
                 >
                     <IonIcon name="chevron-back" className="text-2xl"/>
                 </button>
-
-                <button
-                    onClick={() => setIsFavorite(!isFavorite)}
-                    className="size-12 bg-white/90  backdrop-blur-md border border-gray-200  rounded-2xl flex items-center justify-center shadow-lg pointer-events-auto active:scale-90 transition-all"
-                >
-                    <IonIcon
-                        name={isFavorite ? "heart" : "heart-outline"}
-                        className={`text-xl transition-colors ${isFavorite ? "text-red-500" : "text-black "}`}
-                    />
-                </button>
             </header>
 
             {/* Hero Image */}
@@ -116,14 +105,14 @@ export default function MissionDetail() {
                         <div
                             className="flex items-center gap-2 bg-gray-50 border border-gray-100  px-4 py-2.5 rounded-2xl">
                             <IonIcon name="location" className="text-black  text-sm"/>
-                            <span className="text-[10px] font-black uppercase tracking-tight ">
+                            <span className="text-[10px] font-black uppercase tracking-tight text-black">
                   {mission.localisation || "France"}
                 </span>
                         </div>
                         <div
                             className="flex items-center gap-2 bg-gray-50 border border-gray-100  px-4 py-2.5 rounded-2xl">
                             <IonIcon name="person" className="text-black  text-sm"/>
-                            <span className="text-[10px] font-black uppercase tracking-tight ">
+                            <span className="text-[10px] font-black uppercase tracking-tight text-black">
                   {`${mission.utilisateur?.prenom} ${mission.utilisateur?.nom}`}
                 </span>
                         </div>

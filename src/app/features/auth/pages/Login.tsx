@@ -3,7 +3,8 @@ import {Link, useNavigate} from "react-router";
 import IonIcon from "@reacticons/ionicons";
 import Message from "../../../core/components/Message.tsx";
 import {authService} from "../services/authService.ts";
-
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../../store/authSlice';
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,6 +15,7 @@ export default function Login() {
         message: string;
     } | null>(null);
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -22,16 +24,15 @@ export default function Login() {
         setMessage(null);
         try {
             const data = await authService.login(email, password);
-
-            setMessage({status: 200, message: "Connexion réussie 🎉"});
-
-            localStorage.setItem("hasToken", data.token);
-            localStorage.setItem("user_id", data.user.id_utilisateur);
-            localStorage.setItem("status", data.user.role);
+            dispatch(setCredentials({
+                token: data.token,
+                user: data.user
+            }));
 
             navigate("/");
-        } catch (error: never) {
-            setMessage({status: 500, message: error.message});
+        } catch (error) {
+            const err = error as Error;
+            setMessage({ status: 500, message: err.message || "Identifiants invalides" });
         } finally {
             setIsLoading(false);
         }

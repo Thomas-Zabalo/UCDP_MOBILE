@@ -18,7 +18,7 @@ export default function Layout() {
 
   useEffect(() => {
     resetUnread();
-  }, []);
+  }, [resetUnread]);
 
   useEffect(() => {
     const token = localStorage.getItem("hasToken");

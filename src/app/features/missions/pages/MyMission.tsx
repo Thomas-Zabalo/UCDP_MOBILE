@@ -23,6 +23,13 @@ type MissionGroup = {
   candidatures: Candidature[];
 };
 
+interface MissionItemProps {
+  title: string;
+  status: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
 export default function MyMission() {
   const [missions, setMissions] = useState<MissionGroup[]>([]);
   const [selectedMission, setSelectedMission] = useState<string | null>(null);
@@ -185,7 +192,7 @@ export default function MyMission() {
   );
 }
 
-function MissionItem({ title, status, isActive, onClick }: any) {
+function MissionItem({ title, status, isActive, onClick }: MissionItemProps) {
   return (
     <button
       onClick={onClick}

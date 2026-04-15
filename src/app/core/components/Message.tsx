@@ -1,4 +1,12 @@
-export default function Message({ data }: { data?: any }) {
+export interface MessageData {
+    status: number | string;
+    message: string;
+}
+
+interface MessageProps {
+    data?: MessageData | null;
+}
+export default function Message({ data }: MessageProps) {
   if (!data || !data.status) {
     return null;
   }

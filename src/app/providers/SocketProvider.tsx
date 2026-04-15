@@ -1,12 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+// src/app/providers/SocketProvider.tsx
+import React, { useContext, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
-
-interface SocketContextType {
-    socket: Socket | null;
-    isConnected: boolean;
-}
-
-const SocketContext = createContext<SocketContextType>({ socket: null, isConnected: false });
+import { SocketContext } from './SocketContext';
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -14,7 +9,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('hasToken');
-        // Remplace par ton URL de Backend
+
+        // URL de ton backend
         const newSocket = io("http://localhost:3000", {
             auth: { token }
         });
@@ -24,7 +20,10 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
         setSocket(newSocket);
 
-        return () => { newSocket.close(); };
+        return () => {
+
+            newSocket.close();
+        };
     }, []);
 
     return (
