@@ -84,7 +84,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
                 {phrase.split(" ").map((word, i) => (
                     <span
                         key={i}
-                        ref={(el) => (wordsRef.current[i] = el!)}
+                        ref={(el) => {wordsRef.current[i] = el!}}
                         className="inline-block"
                     >
                         {word}
