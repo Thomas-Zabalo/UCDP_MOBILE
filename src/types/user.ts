@@ -4,20 +4,19 @@ export const Role = {
   CLIENT: "CLIENT",
 } as const;
 
-export type Role = (typeof Role)[keyof typeof Role];
+export type UserRole = (typeof Role)[keyof typeof Role];
 
 export interface User {
-  id: number;
+  id_utilisateur: string;
   prenom: string;
   nom: string;
-  raison_sociale?: string;
   mail: string;
   telephone: number;
   adresse: string;
   code_postal: number;
   ville: string;
-  role: Role;
-  credit: number;
+  raison_sociale?: string;
+  role: UserRole;
 }
 
 export interface UserDTO {

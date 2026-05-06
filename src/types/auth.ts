@@ -1,4 +1,4 @@
-import type { User } from "./user";
+import type { User } from "./user.ts";
 
 export interface AuthResponse {
   message: string;
@@ -7,18 +7,20 @@ export interface AuthResponse {
 }
 
 export interface LoginCredentials {
-  mail: string;
+  email: string;
   password: string;
 }
 
 export interface RegisterFormData {
   nom: string;
   prenom: string;
-  mail: string;
-  mdp: string;
+  email: string;
+  password: string;
   telephone: string;
   adresse: string;
   code_postal: string;
   ville: string;
   raison_sociale?: string;
+  role: "CLIENT" | "PRESTATAIRE";
+  metiers?: string[];
 }

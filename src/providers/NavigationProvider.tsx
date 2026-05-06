@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
 import { useLocation } from "react-router";
-import { NavigationStack, navStack } from "../data/navigationStack";
+import { type NavigationStack, navStack } from "../data/data.ts";
 
 const NavigationContext = createContext<NavigationStack>(navStack);
 
@@ -22,6 +22,7 @@ export function NavigationProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useNavigationStack() {
   return useContext(NavigationContext);
 }

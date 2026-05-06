@@ -1,4 +1,12 @@
-export default function Message({ data }: { data?: any }) {
+export interface MessageData {
+  status: number | string;
+  message: string;
+}
+
+interface MessageProps {
+  data?: MessageData | null;
+}
+export default function Message({ data }: MessageProps) {
   if (!data || !data.status) {
     return null;
   }
@@ -15,8 +23,8 @@ export default function Message({ data }: { data?: any }) {
                 transition-all duration-300
                 ${
                   isSuccess
-                    ? "bg-green-50 border-green-200 text-green-700 dark:bg-green-900/30 dark:border-green-800 dark:text-green-300"
-                    : "bg-red-50 border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-800 dark:text-red-300"
+                    ? "bg-green-50 border-green-200 text-green-700"
+                    : "bg-red-50 border-red-200 text-red-700"
                 }
             `}
     >

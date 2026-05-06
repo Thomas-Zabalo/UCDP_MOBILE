@@ -1,4 +1,4 @@
-import type {User} from "./user.ts";
+import type { User } from "./user.ts";
 
 export interface Metier {
   id_metier: string;
@@ -6,7 +6,7 @@ export interface Metier {
 }
 
 export interface Mission {
-  id_offre: string;
+  id_offre: number;
   id_utilisateur: string;
   id_metier: string;
   titre: string;
@@ -15,6 +15,7 @@ export interface Mission {
   prix: number;
   date_offre: string;
   statut: boolean;
+  is_accepted: boolean;
   utilisateur: User;
   metier: Metier;
 }
